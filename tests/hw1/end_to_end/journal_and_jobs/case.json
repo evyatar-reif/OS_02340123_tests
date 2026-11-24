@@ -52,7 +52,7 @@
     {"expect": "(?<=journal> )journal> "},
     {"send": "showpid >> journal.txt"},
     {"expect": "(?<=journal> )journal> "},
-    {"send": "cat journal.txt | grep -F smash"},
+    {"send": "cat journal.txt | grep ^smash"},
     {"expect": "(?<=journal> )smash pid is {{SHELL_PID}}\\njournal> "},
     {"send": "cat journal.txt"},
     {"expect": "(?<=journal> ){{WORKDIR}}/work\\nsmash pid is {{SHELL_PID}}\\njournal> "},
