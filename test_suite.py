@@ -292,6 +292,8 @@ class Session:
             if pid == 0:
                 try:
                     os.chdir(str(work))
+                    # Match Popen's default signal restoration for external programs.
+                    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
                     os.execve(str(binary), [str(binary)], env)
                 except OSError as error:
                     os.write(2, ("test runner: exec failed: {}\n".format(error)).encode())
@@ -1229,6 +1231,16 @@ class LinuxIntegrationTests(CaseFixture):
         result = self.run_case(case)
         self.assertEqual("smash error: fixture error\n", result["streams"]["stderr"])
         self.assertEqual("{{WORKDIR}}\n", result["files"]["out.txt"]["content"])
+
+    def test_interactive_child_restores_sigpipe(self):
+        self.binary.write_text("#!/bin/sh\nseq 1 1000000 | head -n 2\n", encoding="utf-8")
+        case = self.case(None, {"mode": "interactive", "steps": [{"expect": "1\n2\n"}]})
+        previous = signal.signal(signal.SIGPIPE, signal.SIG_IGN)
+        try:
+            result = self.run_case(case)
+        finally:
+            signal.signal(signal.SIGPIPE, previous)
+        self.assertEqual("1\n2\n", result["streams"]["transcript"])
 
     def test_actual_ctrl_c_uses_observed_child_pid(self):
         case = self.case(None, {"mode": "interactive", "timeout": 5, "steps": [
