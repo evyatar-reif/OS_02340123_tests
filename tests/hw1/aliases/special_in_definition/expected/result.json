@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "files": {
+    "out.txt": {
+      "kind": "text"
+    }
+  },
+  "generated_at": "2026-11-24T18:40:16.616050+00:00",
+  "reference": {
+    "binary_sha256": "086b315b36381ab333ae369b1cc3666c10972d71f73c8bde30cc0e2c244830b4",
+    "label": "Evyatar HW1 reference 2026-11-24"
+  },
+  "schema": 1,
+  "streams": [
+    "stdout",
+    "stderr"
+  ],
+  "test_sha256": "3faa3793832562fe1097e3030e7df537c018c54805bc4bf2eff8f4ae0c03efd9"
+}

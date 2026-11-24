@@ -1,0 +1,4 @@
+smash error: alias: p already exists or is a reserved command
+smash error: alias: cd already exists or is a reserved command
+smash error: alias: du already exists or is a reserved command
+smash error: alias: whoami already exists or is a reserved command

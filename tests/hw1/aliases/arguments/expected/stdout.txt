@@ -1,0 +1,3 @@
+smash> smash> hello world
+smash> smash> {{WORKDIR}}
+smash> 

@@ -1,0 +1,4 @@
+smash> smash> sleep 30 & {{PID:job}}
+smash: got ctrl-C
+smash: process {{PID:job}} was killed
+smash> smash> 

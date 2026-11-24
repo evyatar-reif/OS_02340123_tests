@@ -1,0 +1,3 @@
+smash> a.txt b.txt
+smash> a.txt b.txt
+smash> 

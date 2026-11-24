@@ -1,0 +1,4 @@
+smash> smash> p='pwd > out.txt'
+smash> smash> {{WORKDIR}}
+smash> smash> {{WORKDIR}}
+smash> 

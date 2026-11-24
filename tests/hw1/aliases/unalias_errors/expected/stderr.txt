@@ -1,0 +1,2 @@
+smash error: unalias: not enough arguments
+smash error: unalias: missing alias does not exist

@@ -1,0 +1,2 @@
+smash error: unsetenv: not enough arguments
+smash error: unsetenv: OS_TEST_MISSING_234123 does not exist

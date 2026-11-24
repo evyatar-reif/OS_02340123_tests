@@ -1,0 +1,5 @@
+smash> smash> smash> smash> {{WORKDIR}}
+smash> smash> p='pwd'
+a='alias'
+smash> {{WORKDIR}}
+smash> 

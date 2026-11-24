@@ -1,0 +1,5 @@
+smash> smash> smash> smash> p='pwd'
+s='sleep'
+smash> p='pwd'
+s='sleep'
+smash> 

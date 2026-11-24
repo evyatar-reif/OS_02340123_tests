@@ -1,0 +1,4 @@
+smash> smash: got ctrl-C
+smash: process {{PID:foreground}} was killed
+smash> {{WORKDIR}}
+smash> 

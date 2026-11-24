@@ -1,0 +1,2 @@
+smash> Total disk usage: {{DISK_KB}} KB
+smash> 

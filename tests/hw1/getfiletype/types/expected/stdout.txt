@@ -1,0 +1,7 @@
+smash> regular.txt's type is "regular file" and takes up 6 bytes
+smash> folder's type is "directory" and takes up {{DIRECTORY_BYTES}} bytes
+smash> link's type is "symbolic link" and takes up 11 bytes
+smash> fifo's type is "FIFO" and takes up 0 bytes
+smash> socket's type is "socket" and takes up 0 bytes
+smash> /dev/null's type is "character device" and takes up 0 bytes
+smash> 

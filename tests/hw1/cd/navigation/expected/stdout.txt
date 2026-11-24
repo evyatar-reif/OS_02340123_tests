@@ -1,0 +1,8 @@
+smash> {{WORKDIR}}
+smash> smash> {{WORKDIR}}/one
+smash> smash> {{WORKDIR}}/one/two
+smash> smash> {{WORKDIR}}/one
+smash> smash> {{WORKDIR}}
+smash> smash> {{WORKDIR}}/one
+smash> smash> {{WORKDIR}}/one
+smash> 

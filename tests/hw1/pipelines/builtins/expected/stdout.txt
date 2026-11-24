@@ -1,0 +1,4 @@
+smash> {{WORKDIR}}
+smash> smash pid is {{PID:1}}
+smash> smash> p='pwd'
+smash> 
