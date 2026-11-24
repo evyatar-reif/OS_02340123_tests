@@ -1,0 +1,3 @@
+cat items.txt | grep beta
+cat items.txt|wc -l
+quit

@@ -1,0 +1,38 @@
+{
+  "mode": "interactive",
+  "timeout": 8,
+  "description": "Jobs preserve the user's alias invocation, spacing, and ampersand",
+  "steps": [
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "alias s='sleep'"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "s   30 &"
+    },
+    {
+      "wait_child": "job",
+      "command": "sleep"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "jobs"
+    },
+    {
+      "expect": "\\[1\\] s   30 &"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "quit kill"
+    }
+  ]
+}

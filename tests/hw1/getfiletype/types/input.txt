@@ -1,0 +1,7 @@
+getfiletype regular.txt
+getfiletype folder
+getfiletype link
+getfiletype fifo
+getfiletype socket
+getfiletype /dev/null
+quit

@@ -1,0 +1,9 @@
+{
+  "setup": [
+    {
+      "type": "directory",
+      "path": "one/two"
+    }
+  ],
+  "description": "Relative navigation and repeated OLDPWD changes"
+}

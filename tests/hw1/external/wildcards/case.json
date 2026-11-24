@@ -1,0 +1,20 @@
+{
+  "setup": [
+    {
+      "type": "file",
+      "path": "a.txt",
+      "text": "a\n"
+    },
+    {
+      "type": "file",
+      "path": "b.txt",
+      "text": "b\n"
+    },
+    {
+      "type": "file",
+      "path": "c.log",
+      "text": "c\n"
+    }
+  ],
+  "description": "Use Bash for wildcard commands"
+}

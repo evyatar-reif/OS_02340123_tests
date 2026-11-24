@@ -1,0 +1,4 @@
+pwd > out.txt &
+cat out.txt
+pwd
+quit

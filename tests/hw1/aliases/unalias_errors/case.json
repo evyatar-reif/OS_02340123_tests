@@ -1,0 +1,3 @@
+{
+  "description": "Stop unalias at the first missing name, keeping prior deletions"
+}

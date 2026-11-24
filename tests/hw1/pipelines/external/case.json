@@ -1,0 +1,10 @@
+{
+  "setup": [
+    {
+      "type": "file",
+      "path": "items.txt",
+      "text": "alpha\nbeta\ngamma\n"
+    }
+  ],
+  "description": "Connect an external writer to a reader"
+}

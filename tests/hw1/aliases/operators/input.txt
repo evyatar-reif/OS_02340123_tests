@@ -1,0 +1,8 @@
+alias p='pwd'
+alias a='alias'
+p>out.txt
+cat out.txt
+a>aliases.txt
+cat aliases.txt
+p|cat
+quit

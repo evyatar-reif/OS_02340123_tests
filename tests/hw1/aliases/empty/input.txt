@@ -1,0 +1,6 @@
+alias empty=''
+empty
+alias spaces='   '
+spaces
+alias
+quit

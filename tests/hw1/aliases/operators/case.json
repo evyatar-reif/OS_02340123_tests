@@ -1,0 +1,7 @@
+{
+  "files": [
+    "out.txt",
+    "aliases.txt"
+  ],
+  "description": "Aliases next to operators without whitespace"
+}

@@ -1,0 +1,9 @@
+{
+  "setup": [
+    {
+      "type": "directory",
+      "path": "folder"
+    }
+  ],
+  "description": "Open failures leave stdout connected to the terminal"
+}

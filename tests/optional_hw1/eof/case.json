@@ -1,0 +1,4 @@
+{
+  "timeout": 2,
+  "description": "Optional robustness: EOF exits instead of printing prompts forever"
+}

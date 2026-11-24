@@ -1,0 +1,4 @@
+{
+  "identity": true,
+  "description": "Username, UID, GID, and home must match the Linux user"
+}

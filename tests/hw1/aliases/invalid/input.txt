@@ -1,0 +1,6 @@
+alias a=pwd
+alias bad-name='pwd'
+alias a='pwd' extra
+alias a='pwd
+alias
+quit

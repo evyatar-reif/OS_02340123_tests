@@ -1,0 +1,17 @@
+{
+  "setup": [
+    {
+      "type": "directory",
+      "path": "empty"
+    }
+  ],
+  "values": [
+    {
+      "name": "DISK_KB",
+      "kind": "du",
+      "path": "empty",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "description": "Include directory allocation even for an empty directory"
+}

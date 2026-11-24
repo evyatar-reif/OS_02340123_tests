@@ -1,0 +1,7 @@
+{
+  "env": {
+    "OS_TEST_A": "alpha",
+    "OS_TEST_B": "beta"
+  },
+  "description": "Remove one variable and preserve unrelated variables"
+}

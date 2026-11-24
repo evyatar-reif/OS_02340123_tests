@@ -1,0 +1,6 @@
+alias p='pwd'
+alias
+p
+unalias p
+alias
+quit

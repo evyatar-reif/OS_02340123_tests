@@ -1,0 +1,7 @@
+{
+  "env": {
+    "OS_TEST_A": "alpha",
+    "OS_TEST_B": "beta"
+  },
+  "description": "Stop at first invalid variable after applying earlier deletions"
+}

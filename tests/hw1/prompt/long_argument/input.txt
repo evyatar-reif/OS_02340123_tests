@@ -1,0 +1,4 @@
+chprompt pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
+pwd
+chprompt
+quit

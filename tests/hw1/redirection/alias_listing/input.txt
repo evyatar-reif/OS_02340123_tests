@@ -1,0 +1,6 @@
+alias p='pwd'
+alias s='sleep'
+alias > aliases.txt
+cat aliases.txt
+alias
+quit

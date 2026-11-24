@@ -1,0 +1,7 @@
+alias p='pwd'
+alias p='showpid'
+alias cd='pwd'
+alias du='pwd'
+alias whoami='pwd'
+alias
+quit

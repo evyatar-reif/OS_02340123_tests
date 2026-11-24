@@ -1,0 +1,6 @@
+{
+  "files": [
+    "aliases.txt"
+  ],
+  "description": "Redirect the alias listing without parsing it as a definition"
+}

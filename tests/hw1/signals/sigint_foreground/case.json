@@ -1,0 +1,36 @@
+{
+  "mode": "interactive",
+  "timeout": 8,
+  "description": "An explicit SIGINT to smash follows the Ctrl+C behavior",
+  "steps": [
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "sleep 30"
+    },
+    {
+      "wait_child": "foreground",
+      "command": "sleep",
+      "foreground": true
+    },
+    {
+      "signal": {
+        "name": "SIGINT",
+        "target": "shell"
+      }
+    },
+    {
+      "expect": "smash: got ctrl-C\n"
+    },
+    {
+      "expect": "smash: process {{foreground}} was killed\n"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "quit"
+    }
+  ]
+}

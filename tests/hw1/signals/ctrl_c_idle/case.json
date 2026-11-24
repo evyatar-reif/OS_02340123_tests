@@ -1,0 +1,28 @@
+{
+  "mode": "interactive",
+  "timeout": 6,
+  "description": "Ctrl+C with no foreground command keeps the shell alive",
+  "steps": [
+    {
+      "expect": "smash> "
+    },
+    {
+      "ctrl_c": true
+    },
+    {
+      "expect": "smash: got ctrl-C\n"
+    },
+    {
+      "send": "pwd"
+    },
+    {
+      "expect": "{{WORKDIR}}\n"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "quit"
+    }
+  ]
+}

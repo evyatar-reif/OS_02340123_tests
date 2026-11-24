@@ -1,0 +1,35 @@
+{
+  "setup": [
+    {
+      "type": "file",
+      "path": "regular.txt",
+      "text": "hello\n"
+    },
+    {
+      "type": "directory",
+      "path": "folder"
+    },
+    {
+      "type": "symlink",
+      "path": "link",
+      "target": "regular.txt"
+    },
+    {
+      "type": "fifo",
+      "path": "fifo"
+    },
+    {
+      "type": "socket",
+      "path": "socket"
+    }
+  ],
+  "values": [
+    {
+      "name": "DIRECTORY_BYTES",
+      "kind": "size",
+      "path": "folder",
+      "pattern": "folder's type is \"directory\" and takes up (?P<value>[0-9]+) bytes"
+    }
+  ],
+  "description": "Regular file, directory, symlink, FIFO, socket, and character device"
+}

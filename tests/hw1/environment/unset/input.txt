@@ -1,0 +1,4 @@
+unsetenv OS_TEST_A
+printenv OS_TEST_A
+printenv OS_TEST_B
+quit

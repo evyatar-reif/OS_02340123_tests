@@ -1,0 +1,10 @@
+{
+  "setup": [
+    {
+      "type": "file",
+      "path": "regular.txt",
+      "text": "hello\n"
+    }
+  ],
+  "description": "Argument-count errors and lstat failure"
+}

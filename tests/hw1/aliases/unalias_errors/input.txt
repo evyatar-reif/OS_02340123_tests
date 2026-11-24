@@ -1,0 +1,8 @@
+unalias
+alias a='pwd'
+alias b='showpid'
+unalias a missing b
+alias
+unalias b
+alias
+quit

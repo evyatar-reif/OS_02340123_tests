@@ -1,0 +1,4 @@
+getfiletype
+getfiletype regular.txt extra
+getfiletype missing_file
+quit

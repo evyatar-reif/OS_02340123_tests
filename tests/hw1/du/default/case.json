@@ -1,0 +1,22 @@
+{
+  "setup": [
+    {
+      "type": "directory",
+      "path": "sub"
+    },
+    {
+      "type": "file",
+      "path": "sub/a.txt",
+      "text": "data\n"
+    }
+  ],
+  "values": [
+    {
+      "name": "DISK_KB",
+      "kind": "du",
+      "path": ".",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "description": "Default to the current directory"
+}

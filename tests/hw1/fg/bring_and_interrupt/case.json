@@ -1,0 +1,55 @@
+{
+  "mode": "interactive",
+  "timeout": 8,
+  "description": "Bring an existing job to foreground, then interrupt it",
+  "pid_patterns": [
+    "sleep 30 & (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "sleep 30 &"
+    },
+    {
+      "wait_child": "job",
+      "command": "sleep"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "fg"
+    },
+    {
+      "expect": "sleep 30 & {{job}}\n"
+    },
+    {
+      "wait_child": "job",
+      "command": "sleep",
+      "foreground": true
+    },
+    {
+      "ctrl_c": true
+    },
+    {
+      "expect": "smash: process {{job}} was killed\n"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "wait_exit": "job"
+    },
+    {
+      "send": "jobs"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "quit"
+    }
+  ]
+}

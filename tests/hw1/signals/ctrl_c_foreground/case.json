@@ -1,0 +1,45 @@
+{
+  "mode": "interactive",
+  "timeout": 8,
+  "description": "Actual Ctrl+C reaches smash and kills the observed foreground child",
+  "steps": [
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "sleep 30"
+    },
+    {
+      "wait_child": "foreground",
+      "command": "sleep",
+      "foreground": true
+    },
+    {
+      "ctrl_c": true
+    },
+    {
+      "expect": "smash: got ctrl-C\n"
+    },
+    {
+      "expect": "smash: process {{foreground}} was killed\n"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "wait_exit": "foreground"
+    },
+    {
+      "send": "pwd"
+    },
+    {
+      "expect": "{{WORKDIR}}\n"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "quit"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+pwd
+cd one
+pwd
+cd two
+pwd
+cd -
+pwd
+cd ..
+pwd
+cd -
+pwd
+cd .
+pwd
+quit

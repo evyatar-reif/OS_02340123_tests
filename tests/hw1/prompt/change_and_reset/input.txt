@@ -1,0 +1,5 @@
+chprompt hello ignored
+pwd
+chprompt
+pwd
+quit

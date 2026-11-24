@@ -1,0 +1,5 @@
+alias e='echo hello'
+e world
+alias p='pwd'
+p ignored
+quit

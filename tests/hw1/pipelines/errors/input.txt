@@ -1,0 +1,4 @@
+os_tests_missing_command_234123 |& cat
+pwd | os_tests_missing_command_234123
+pwd
+quit

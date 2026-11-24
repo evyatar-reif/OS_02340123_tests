@@ -1,0 +1,32 @@
+{
+  "mode": "interactive",
+  "timeout": 8,
+  "description": "Pipeline children must not reap or discard the parent shell's jobs",
+  "steps": [
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "sleep 30 &"
+    },
+    {
+      "wait_child": "job",
+      "command": "sleep"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "jobs | cat"
+    },
+    {
+      "expect": "\\[1\\] sleep 30 &"
+    },
+    {
+      "expect": "smash> "
+    },
+    {
+      "send": "quit kill"
+    }
+  ]
+}

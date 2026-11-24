@@ -1,0 +1,7 @@
+alias p='pwd > out.txt'
+alias
+p
+cat out.txt
+alias q='pwd | cat'
+q
+quit

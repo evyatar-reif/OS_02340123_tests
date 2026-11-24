@@ -1,0 +1,5 @@
+pwd > out.txt
+showpid>out.txt
+cat out.txt
+pwd
+quit

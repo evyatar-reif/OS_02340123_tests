@@ -1,0 +1,6 @@
+{
+  "files": [
+    "out.txt"
+  ],
+  "description": "Ignore trailing ampersand on redirection"
+}

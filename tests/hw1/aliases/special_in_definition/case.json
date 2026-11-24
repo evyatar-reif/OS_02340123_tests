@@ -1,0 +1,6 @@
+{
+  "files": [
+    "out.txt"
+  ],
+  "description": "Store operators inside definitions and apply them on expansion"
+}

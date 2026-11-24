@@ -1,0 +1,5 @@
+pwd | cat
+showpid | cat
+alias p='pwd'
+alias | cat
+quit

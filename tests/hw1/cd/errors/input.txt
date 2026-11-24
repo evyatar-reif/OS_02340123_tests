@@ -1,0 +1,6 @@
+cd -
+cd missing_directory
+cd one two
+cd
+pwd
+quit

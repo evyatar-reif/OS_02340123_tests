@@ -1,0 +1,9 @@
+{
+  "setup": [
+    {
+      "type": "directory",
+      "path": "one"
+    }
+  ],
+  "description": "OLDPWD error, chdir failure, argument priority, and no-argument no-op"
+}

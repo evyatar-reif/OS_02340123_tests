@@ -1,0 +1,6 @@
+fg
+fg abc
+fg 8 a
+fg 999
+fg 0
+quit

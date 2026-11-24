@@ -1,0 +1,4 @@
+showpid
+showpid ignored arguments
+showpid&
+quit

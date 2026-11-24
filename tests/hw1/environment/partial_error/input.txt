@@ -1,0 +1,5 @@
+unsetenv
+unsetenv OS_TEST_A OS_TEST_MISSING_234123 OS_TEST_B
+printenv OS_TEST_A
+printenv OS_TEST_B
+quit

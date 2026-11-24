@@ -1,0 +1,6 @@
+{
+  "files": [
+    "out.txt"
+  ],
+  "description": "Create and truncate output; restore stdout afterward"
+}

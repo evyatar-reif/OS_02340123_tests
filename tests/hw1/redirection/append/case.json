@@ -1,0 +1,6 @@
+{
+  "files": [
+    "out.txt"
+  ],
+  "description": "Append instead of truncating"
+}

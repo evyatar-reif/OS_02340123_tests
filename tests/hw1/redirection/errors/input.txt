@@ -1,0 +1,4 @@
+pwd > absent/out.txt
+pwd > folder
+pwd
+quit

@@ -1,0 +1,3 @@
+{
+  "description": "Pipe stderr with |& and restore normal command execution"
+}

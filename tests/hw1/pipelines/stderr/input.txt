@@ -1,0 +1,3 @@
+ls missing_file |& cat
+pwd
+quit
