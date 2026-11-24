@@ -1,0 +1,98 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Reuse the highest job ID, interrupt the replacement, and have quit kill terminate only the original job",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/before.txt",
+      "text": "before\n"
+    },
+    {
+      "type": "file",
+      "path": "work/source/next.txt",
+      "text": "after\n"
+    }
+  ],
+  "files": [
+    "work/pids.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "sleep 92\\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt job"},
+    {"expect": "(?<=smash> )job> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=job> )job> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "job> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "job> "},
+    {"send": "jobs"},
+    {"expect": "(?<=job> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\njob> "},
+    {"send": "showpid > pids.txt"},
+    {"expect": "(?<=job> )job> "},
+    {"send": "kill -15 2"},
+    {"expect": "(?<=job> )signal number 15 was sent to pid {{second}}\\njob> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "sleep 92&"},
+    {"wait_child": "replacement", "command": "sleep", "timeout": 5},
+    {"expect": "job> "},
+    {"send": "jobs"},
+    {"expect": "(?<=job> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 92\\&\\njob> "},
+    {"send": "showpid >> pids.txt"},
+    {"expect": "(?<=job> )job> "},
+    {"send": "cat pids.txt | wc -l"},
+    {"expect": "(?<=job> )2\\njob> "},
+    {"send": "cat pids.txt"},
+    {"expect": "(?<=job> )smash pid is {{SHELL_PID}}\\nsmash pid is {{SHELL_PID}}\\njob> "},
+    {"send": "pwd"},
+    {"expect": "(?<=job> ){{WORKDIR}}/work\\njob> "},
+    {"send": "whoami"},
+    {"expect": "(?<=job> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\njob> "},
+    {"send": "du source"},
+    {"expect": "(?<=job> )Total disk usage: [0-9]+ KB\\njob> "},
+    {"send": "getfiletype source/next.txt"},
+    {"expect": "(?<=job> )source/next\\.txt's type is \"regular file\" and takes up 6 bytes\\njob> "},
+    {"send": "cat source/*.txt"},
+    {"expect": "(?<=job> )before\\nafter\\njob> "},
+    {"send": "cat absent.txt |& wc -l"},
+    {"expect": "(?<=job> )1\\njob> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=job> )job> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=job> )job> "},
+    {"send": "fg"},
+    {"expect": "sleep 92\\& {{replacement}}\\n"},
+    {"wait_child": "replacement", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{replacement}} was killed\\njob> "},
+    {"wait_exit": "replacement", "timeout": 5},
+    {"send": "jobs"},
+    {"expect": "(?<=job> )\\[1\\] hold 90 \\&\\njob> "},
+    {"send": "unalias hold"},
+    {"expect": "(?<=job> )job> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=job> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 1 jobs:\\n{{first}}: hold 90 \\&\\n"}
+  ]
+}

@@ -1,0 +1,6 @@
+printenv SMASH_REDIRECT_DROP > before.txt
+unsetenv SMASH_REDIRECT_DROP > unset.txt
+printenv SMASH_REDIRECT_DROP SMASH_REDIRECT_KEEP > after.txt
+cat before.txt after.txt
+getfiletype unset.txt
+quit

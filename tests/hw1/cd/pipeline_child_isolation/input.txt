@@ -1,0 +1,7 @@
+cd base
+cd child | cat
+pwd
+cd -
+pwd
+cat base/child/note.txt
+quit

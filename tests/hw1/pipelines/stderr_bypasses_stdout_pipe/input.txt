@@ -1,0 +1,4 @@
+cat present.txt missing.txt | grep selected
+pwd
+cat present.txt
+quit

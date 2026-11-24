@@ -1,0 +1,9 @@
+alias usage='du'
+cd tree
+usage
+pwd
+cd -
+getfiletype tree
+usage tree
+unalias usage
+quit

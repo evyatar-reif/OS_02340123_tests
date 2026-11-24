@@ -1,0 +1,6 @@
+printenv SMASH_CASE_KEY smash_case_key SMASH_CASE_KEY_EXTRA
+unsetenv smash_case_key
+printenv SMASH_CASE_KEY smash_case_key SMASH_CASE_KEY_EXTRA
+unsetenv SMASH_CASE_KEY
+printenv SMASH_CASE_KEY_EXTRA
+quit

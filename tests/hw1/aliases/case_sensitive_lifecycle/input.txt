@@ -1,0 +1,11 @@
+alias tag='echo lower'
+alias Tag='echo upper'
+tag
+Tag
+unalias tag
+alias
+Tag
+alias tag='echo recreated'
+alias
+tag
+quit

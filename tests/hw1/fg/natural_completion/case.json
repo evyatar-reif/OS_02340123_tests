@@ -1,0 +1,37 @@
+{
+  "mode": "interactive",
+  "timeout": 12,
+  "description": "Wait for a foregrounded job to finish naturally and reuse its ID afterward",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "finish.sh",
+      "text": "sleep 3\nprintf 'job completed\\n'\n"
+    }
+  ],
+  "pid_patterns": [
+    "bash finish\\.sh & (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "bash finish.sh &"},
+    {"wait_child": "short_job", "command": "bash"},
+    {"expect": "smash> "},
+    {"send": "fg 1"},
+    {"expect": "bash finish\\.sh & {{short_job}}\\n"},
+    {"expect": "(?<=bash finish\\.sh & {{short_job}}\\n)job completed\\nsmash> "},
+    {"wait_exit": "short_job", "timeout": 6},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "replacement", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\nsmash>\\ "},
+    {"send": "quit kill"},
+    {"expect": "{{replacement}}: sleep 31 &\\n"}
+  ]
+}

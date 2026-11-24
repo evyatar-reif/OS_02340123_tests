@@ -1,0 +1,19 @@
+{
+  "description": "Keep identity independent of HOME, the prompt, and cwd while capturing stdout to a file",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "sub"
+    }
+  ],
+  "env": {
+    "HOME": "/smash-test-overridden-home"
+  },
+  "identity": true,
+  "files": [
+    "sub/identity.txt"
+  ]
+}

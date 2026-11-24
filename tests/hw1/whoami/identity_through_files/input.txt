@@ -1,0 +1,10 @@
+chprompt account
+cd sub
+whoami ignored > identity.txt
+unsetenv HOME
+whoami
+cat identity.txt
+cd -
+showpid
+chprompt
+quit

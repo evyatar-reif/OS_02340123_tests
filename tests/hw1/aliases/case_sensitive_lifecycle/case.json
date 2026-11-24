@@ -1,0 +1,6 @@
+{
+  "description": "Keep aliases with different case independent across removal and recreation",
+  "groups": [
+    "combined"
+  ]
+}

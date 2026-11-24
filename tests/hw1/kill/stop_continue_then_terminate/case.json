@@ -1,0 +1,29 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Send stop and continue to the same job and keep it listed until termination",
+  "groups": [
+    "combined"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "job", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "kill -19 1"},
+    {"expect": "(?<=smash>\\ )signal number 19 was sent to pid {{job}}\\nsmash>\\ "},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\nsmash>\\ "},
+    {"send": "kill -18 1"},
+    {"expect": "(?<=smash>\\ )signal number 18 was sent to pid {{job}}\\nsmash>\\ "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=smash>\\ )signal number 15 was sent to pid {{job}}\\nsmash>\\ "},
+    {"wait_exit": "job"},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=smash>\\ )smash error: kill: job-id 1 does not exist\\nsmash>\\ "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

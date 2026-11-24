@@ -1,0 +1,21 @@
+{
+  "description": "Write through an existing symlink while getfiletype still reports a symbolic link",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "target.txt",
+      "text": "original\n"
+    },
+    {
+      "type": "symlink",
+      "path": "pointer.txt",
+      "target": "target.txt"
+    }
+  ],
+  "files": [
+    "target.txt"
+  ]
+}

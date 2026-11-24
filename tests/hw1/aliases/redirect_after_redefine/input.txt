@@ -1,0 +1,8 @@
+alias stamp='echo first'
+stamp > out.txt
+unalias stamp
+alias stamp='echo second'
+stamp>>out.txt
+alias
+cat out.txt
+quit

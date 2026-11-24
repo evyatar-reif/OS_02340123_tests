@@ -1,0 +1,7 @@
+printenv SMASH_PIPE_VALUE
+unsetenv SMASH_PIPE_VALUE | cat
+printenv SMASH_PIPE_VALUE | cat
+unsetenv SMASH_PIPE_VALUE
+printenv SMASH_PIPE_VALUE
+pwd
+quit

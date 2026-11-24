@@ -1,0 +1,7 @@
+alias go='cd data'
+go
+cat item?.txt
+cd -
+pwd
+cat item1.txt
+quit

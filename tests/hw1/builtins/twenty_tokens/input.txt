@@ -1,0 +1,5 @@
+chprompt aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss
+pwd aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss
+showpid aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss
+chprompt
+quit kill

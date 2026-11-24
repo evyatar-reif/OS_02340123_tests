@@ -1,0 +1,8 @@
+chprompt before
+chprompt broken > absent/out.txt
+cd sub > sub
+pwd
+cd sub
+pwd
+chprompt
+quit

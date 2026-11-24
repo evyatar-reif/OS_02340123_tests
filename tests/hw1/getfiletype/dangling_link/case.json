@@ -1,0 +1,18 @@
+{
+  "description": "Inspect a dangling symlink, recover from a failed cat, and return to the previous directory",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "tree/local.txt",
+      "text": "local\n"
+    },
+    {
+      "type": "symlink",
+      "path": "tree/dangling",
+      "target": "missing.txt"
+    }
+  ]
+}

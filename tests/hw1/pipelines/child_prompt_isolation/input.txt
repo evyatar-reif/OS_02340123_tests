@@ -1,0 +1,7 @@
+chprompt outer
+chprompt left | cat
+pwd
+echo ignored | chprompt right
+showpid
+chprompt
+quit

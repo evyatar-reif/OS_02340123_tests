@@ -1,0 +1,95 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Build a journal from shell state, filter it through a pipe, and foreground the surviving job",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/a.txt",
+      "text": "alpha\n"
+    },
+    {
+      "type": "file",
+      "path": "work/source/b.txt",
+      "text": "beta\n"
+    }
+  ],
+  "files": [
+    "work/journal.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "sleep 91 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt journal"},
+    {"expect": "(?<=smash> )journal> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "journal> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "journal> "},
+    {"send": "jobs"},
+    {"expect": "(?<=journal> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\njournal> "},
+    {"send": "pwd > journal.txt"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "showpid >> journal.txt"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "cat journal.txt | grep -F smash"},
+    {"expect": "(?<=journal> )smash pid is {{SHELL_PID}}\\njournal> "},
+    {"send": "cat journal.txt"},
+    {"expect": "(?<=journal> ){{WORKDIR}}/work\\nsmash pid is {{SHELL_PID}}\\njournal> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=journal> )present\\njournal> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "whoami"},
+    {"expect": "(?<=journal> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\njournal> "},
+    {"send": "du source"},
+    {"expect": "(?<=journal> )Total disk usage: [0-9]+ KB\\njournal> "},
+    {"send": "getfiletype source/a.txt"},
+    {"expect": "(?<=journal> )source/a\\.txt's type is \"regular file\" and takes up 6 bytes\\njournal> "},
+    {"send": "cat source/*.txt"},
+    {"expect": "(?<=journal> )alpha\\nbeta\\njournal> "},
+    {"send": "cat absent.txt |& wc -l"},
+    {"expect": "(?<=journal> )1\\njournal> "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=journal> )signal number 15 was sent to pid {{first}}\\njournal> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "jobs | cat"},
+    {"expect": "(?<=journal> )\\[2\\] sleep 91 \\&\\njournal> "},
+    {"send": "fg"},
+    {"expect": "sleep 91 \\& {{second}}\\n"},
+    {"wait_child": "second", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{second}} was killed\\njournal> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "jobs"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "unalias hold"},
+    {"expect": "(?<=journal> )journal> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=journal> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

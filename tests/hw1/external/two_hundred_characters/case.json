@@ -1,0 +1,6 @@
+{
+  "description": "Accept an exact 200-character command and continue with the next command",
+  "groups": [
+    "combined"
+  ]
+}

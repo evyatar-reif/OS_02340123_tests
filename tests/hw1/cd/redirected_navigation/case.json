@@ -1,0 +1,18 @@
+{
+  "description": "Apply a redirected cd in the shell and write subsequent relative output in the new directory",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "sub"
+    }
+  ],
+  "files": [
+    "moved.txt",
+    "sub/inside.txt",
+    "inside.txt",
+    "sub/moved.txt"
+  ]
+}

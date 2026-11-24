@@ -1,0 +1,27 @@
+chprompt flow
+alias readall='cat notes.txt'
+alias pick='grep -n'
+readall | pick alpha
+cat absent.txt |& wc -l
+pwd | wc -l
+seq 1 1000 | wc -l
+getfiletype notes.txt | grep regular
+readall | pick beta
+cat absent.txt |& grep -F absent.txt
+echo saved > report.txt
+readall | wc -l
+echo more >> report.txt
+cat report.txt | pick more
+unalias pick
+alias pick='grep -c'
+readall | pick alpha
+alias | grep pick
+echo top | cat
+cat absent.txt |& wc -l
+getfiletype report.txt
+cat report.txt
+unalias readall pick
+pwd | cat
+chprompt
+echo complete
+quit

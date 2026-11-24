@@ -1,0 +1,9 @@
+{
+  "description": "Accept a 200-character alias definition and preserve its long argument in a file",
+  "groups": [
+    "combined"
+  ],
+  "files": [
+    "tag.txt"
+  ]
+}

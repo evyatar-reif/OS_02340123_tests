@@ -1,0 +1,9 @@
+{
+  "description": "Keep the parent environment after a pipeline child removes a variable",
+  "groups": [
+    "combined"
+  ],
+  "env": {
+    "SMASH_PIPE_VALUE": "parent value"
+  }
+}

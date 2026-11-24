@@ -1,0 +1,13 @@
+{
+  "description": "Expand aliases on both sides of an unspaced pipe and pass a filter argument on invocation",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "colors.txt",
+      "text": "blue\nred\nlight blue\n"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "description": "Expand a glob at execution time and capture the ordered contents in a separate file",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "data/b.txt",
+      "text": "beta\n"
+    },
+    {
+      "type": "file",
+      "path": "data/a.txt",
+      "text": "alpha\n"
+    },
+    {
+      "type": "file",
+      "path": "data/skip.csv",
+      "text": "skip\n"
+    }
+  ],
+  "files": [
+    "combined.txt"
+  ]
+}

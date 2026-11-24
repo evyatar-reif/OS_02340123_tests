@@ -1,0 +1,8 @@
+cd sub
+pwd
+cd ../plain.txt
+pwd
+cd -
+pwd
+cat plain.txt
+quit

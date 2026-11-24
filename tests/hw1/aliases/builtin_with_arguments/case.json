@@ -1,0 +1,12 @@
+{
+  "description": "Let an alias invoke cd in the parent and pass through its path argument",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "sub"
+    }
+  ]
+}

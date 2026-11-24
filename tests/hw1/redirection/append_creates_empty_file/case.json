@@ -1,0 +1,9 @@
+{
+  "description": "Create an empty file on append with a silent command and append data on a second command",
+  "groups": [
+    "combined"
+  ],
+  "files": [
+    "out.txt"
+  ]
+}

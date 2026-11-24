@@ -1,0 +1,5 @@
+cat present.txt absent.txt > result.txt
+echo appended >> result.txt
+cat result.txt
+echo console
+quit

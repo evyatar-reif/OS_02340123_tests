@@ -1,0 +1,18 @@
+{
+  "description": "Track prompts, cwd, aliases, environment, and files through successful and failed operations",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "workspace"
+    }
+  ],
+  "env": {
+    "SMASH_WORKBENCH": "recorded before unset"
+  },
+  "files": [
+    "workspace/journal.txt"
+  ]
+}

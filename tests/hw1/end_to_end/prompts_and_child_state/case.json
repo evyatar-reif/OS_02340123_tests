@@ -1,0 +1,96 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Keep the parent prompt across a pipeline and failed redirection, then handle Ctrl+C after another prompt change",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/a.txt",
+      "text": "payload\n"
+    }
+  ],
+  "files": [
+    "work/prompt.txt",
+    "work/absent/out.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "hold 90 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt prompts"},
+    {"expect": "(?<=smash> )prompts> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=prompts> )prompts> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "prompts> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "prompts> "},
+    {"send": "jobs"},
+    {"expect": "(?<=prompts> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\nprompts> "},
+    {"send": "chprompt inner | cat"},
+    {"expect": "(?<=prompts> )prompts> "},
+    {"send": "chprompt broken > absent/out.txt"},
+    {"expect": "(?<=prompts> )smash error: open failed: No such file or directory\\nprompts> "},
+    {"send": "chprompt stage ignored"},
+    {"expect": "(?<=prompts> )stage> "},
+    {"send": "pwd > prompt.txt"},
+    {"expect": "(?<=stage> )stage> "},
+    {"send": "echo stage >> prompt.txt"},
+    {"expect": "(?<=stage> )stage> "},
+    {"send": "cat prompt.txt | tail -n 1"},
+    {"expect": "(?<=stage> )stage\\nstage> "},
+    {"send": "cat source/?.txt"},
+    {"expect": "(?<=stage> )payload\\nstage> "},
+    {"send": "cat missing.txt |& wc -l"},
+    {"expect": "(?<=stage> )1\\nstage> "},
+    {"send": "showpid"},
+    {"expect": "(?<=stage> )smash pid is {{SHELL_PID}}\\nstage> "},
+    {"send": "whoami"},
+    {"expect": "(?<=stage> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\nstage> "},
+    {"send": "du source"},
+    {"expect": "(?<=stage> )Total disk usage: [0-9]+ KB\\nstage> "},
+    {"send": "getfiletype source/a.txt"},
+    {"expect": "(?<=stage> )source/a\\.txt's type is \"regular file\" and takes up 8 bytes\\nstage> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=stage> )stage> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=stage> )stage> "},
+    {"send": "kill -19 1"},
+    {"expect": "(?<=stage> )signal number 19 was sent to pid {{first}}\\nstage> "},
+    {"send": "jobs"},
+    {"expect": "(?<=stage> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\nstage> "},
+    {"send": "kill -18 1"},
+    {"expect": "(?<=stage> )signal number 18 was sent to pid {{first}}\\nstage> "},
+    {"send": "fg 1"},
+    {"expect": "hold 90 \\& {{first}}\\n"},
+    {"wait_child": "first", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{first}} was killed\\nstage> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "jobs"},
+    {"expect": "(?<=stage> )\\[2\\] sleep 91 \\&\\nstage> "},
+    {"send": "unalias hold"},
+    {"expect": "(?<=stage> )stage> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=stage> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 1 jobs:\\n{{second}}: sleep 91 \\&\\n"}
+  ]
+}

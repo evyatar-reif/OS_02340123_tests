@@ -1,0 +1,7 @@
+alias produce='cat colors.txt'
+alias select='grep -n'
+produce|select blue
+produce | select red
+unalias produce select
+alias
+quit

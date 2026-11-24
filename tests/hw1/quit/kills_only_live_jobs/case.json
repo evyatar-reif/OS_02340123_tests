@@ -1,0 +1,27 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Omit an exited job from quit kill and retain the live job's original aliased command",
+  "groups": [
+    "combined"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "alias keep='sleep'"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "removed", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "keep 32 &"},
+    {"wait_child": "live", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\n\\[2\\] keep 32 \\&\\nsmash>\\ "},
+    {"send": "unalias keep"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"signal": {"name": "SIGTERM", "target": "removed"}},
+    {"wait_exit": "removed"},
+    {"send": "quit kill extra"},
+    {"expect": "smash: sending SIGKILL signal to 1 jobs:\\n{{live}}: keep 32 &\\n"}
+  ]
+}

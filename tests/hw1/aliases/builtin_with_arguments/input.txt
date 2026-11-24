@@ -1,0 +1,10 @@
+alias go='cd'
+alias here='pwd'
+go sub
+here ignored
+go -
+here
+unalias go here
+alias
+pwd
+quit

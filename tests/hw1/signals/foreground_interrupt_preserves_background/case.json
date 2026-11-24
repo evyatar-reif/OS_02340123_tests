@@ -1,0 +1,30 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Interrupt an aliased foreground command under a custom prompt while a background job survives",
+  "groups": [
+    "combined"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "chprompt active"},
+    {"expect": "(?<=smash>\\ )active>\\ "},
+    {"send": "alias pause='sleep 41'"},
+    {"expect": "(?<=active>\\ )active>\\ "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "background", "command": "sleep"},
+    {"expect": "active> "},
+    {"send": "pause"},
+    {"wait_child": "foreground", "command": "sleep", "foreground": true},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{foreground}} was killed\\n"},
+    {"expect": "active> "},
+    {"wait_exit": "foreground"},
+    {"send": "jobs"},
+    {"expect": "(?<=active>\\ )\\[1\\] sleep 31 \\&\\nactive>\\ "},
+    {"send": "showpid"},
+    {"expect": "(?<=active>\\ )smash pid is {{SHELL_PID}}\\nactive>\\ "},
+    {"send": "quit kill"},
+    {"expect": "{{background}}: sleep 31 &\\n"}
+  ]
+}

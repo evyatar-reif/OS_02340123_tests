@@ -1,0 +1,13 @@
+{
+  "description": "Keep stderr on the diagnostic stream while a stdout pipe filters file data",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "present.txt",
+      "text": "selected\nomitted\n"
+    }
+  ]
+}

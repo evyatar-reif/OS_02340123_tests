@@ -1,0 +1,6 @@
+{
+  "description": "Finish when the reader closes early despite a large producer, then run a second pipe",
+  "groups": [
+    "combined"
+  ]
+}

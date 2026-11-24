@@ -1,0 +1,7 @@
+alias discard='unsetenv SMASH_DROP_FIRST'
+discard SMASH_MISSING_MID SMASH_KEEP_LAST
+printenv SMASH_DROP_FIRST SMASH_KEEP_LAST
+unalias discard
+unsetenv SMASH_KEEP_LAST
+printenv SMASH_KEEP_LAST
+quit

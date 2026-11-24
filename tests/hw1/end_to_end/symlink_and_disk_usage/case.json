@@ -1,0 +1,103 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Redirect through a worktree symlink while du skips a link from its measured tree to the changing target",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/hi.txt",
+      "text": "hello\n"
+    },
+    {
+      "type": "file",
+      "path": "work/report.txt",
+      "text": "stale\n"
+    },
+    {
+      "type": "symlink",
+      "path": "work/pointer",
+      "target": "report.txt"
+    },
+    {
+      "type": "symlink",
+      "path": "work/source/edge",
+      "target": "../report.txt"
+    }
+  ],
+  "files": [
+    "work/report.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "sleep 91 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt symlink"},
+    {"expect": "(?<=smash> )symlink> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=symlink> )symlink> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "symlink> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "symlink> "},
+    {"send": "jobs"},
+    {"expect": "(?<=symlink> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\nsymlink> "},
+    {"send": "du source"},
+    {"expect": "(?<=symlink> )Total disk usage: [0-9]+ KB\\nsymlink> "},
+    {"send": "getfiletype source/edge"},
+    {"expect": "(?<=symlink> )source/edge's type is \"symbolic link\" and takes up 13 bytes\\nsymlink> "},
+    {"send": "echo fresh > pointer"},
+    {"expect": "(?<=symlink> )symlink> "},
+    {"send": "showpid >> pointer"},
+    {"expect": "(?<=symlink> )symlink> "},
+    {"send": "cat report.txt | grep -F smash"},
+    {"expect": "(?<=symlink> )smash pid is {{SHELL_PID}}\\nsymlink> "},
+    {"send": "cat source/edge"},
+    {"expect": "(?<=symlink> )fresh\\nsmash pid is {{SHELL_PID}}\\nsymlink> "},
+    {"send": "cat source/??.txt"},
+    {"expect": "(?<=symlink> )hello\\nsymlink> "},
+    {"send": "cat missing.txt |& wc -l"},
+    {"expect": "(?<=symlink> )1\\nsymlink> "},
+    {"send": "du source"},
+    {"expect": "(?<=symlink> )Total disk usage: [0-9]+ KB\\nsymlink> "},
+    {"send": "whoami"},
+    {"expect": "(?<=symlink> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\nsymlink> "},
+    {"send": "pwd"},
+    {"expect": "(?<=symlink> ){{WORKDIR}}/work\\nsymlink> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=symlink> )symlink> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=symlink> )symlink> "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=symlink> )signal number 15 was sent to pid {{first}}\\nsymlink> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "fg 2"},
+    {"expect": "sleep 91 \\& {{second}}\\n"},
+    {"wait_child": "second", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{second}} was killed\\nsymlink> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "unalias hold"},
+    {"expect": "(?<=symlink> )symlink> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=symlink> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

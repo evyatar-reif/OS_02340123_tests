@@ -1,0 +1,4 @@
+cat present.txt missing.txt |& wc -l
+echo stdout-restored
+getfiletype present.txt
+quit

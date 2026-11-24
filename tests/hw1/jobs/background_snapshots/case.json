@@ -1,0 +1,47 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Filter a job listing through a pipeline while keeping the alias and cwd in the parent",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "work"
+    }
+  ],
+  "files": [
+    "work/cwd.txt"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "hold 35 &"},
+    {"wait_child": "aliased", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "sleep 36 &"},
+    {"wait_child": "direct", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "jobs | grep hold"},
+    {"expect": "(?<=smash>\\ )\\[1\\] hold 35 \\&\\nsmash>\\ "},
+    {"send": "pwd > cwd.txt"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "cat cwd.txt"},
+    {"expect": "(?<=smash>\\ ){{WORKDIR}}/work\\nsmash>\\ "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=smash>\\ )signal number 15 was sent to pid {{aliased}}\\nsmash>\\ "},
+    {"wait_exit": "aliased"},
+    {"send": "jobs | cat"},
+    {"expect": "(?<=smash>\\ )\\[2\\] sleep 36 \\&\\nsmash>\\ "},
+    {"send": "cd -"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "alias"},
+    {"expect": "(?<=smash>\\ )hold='sleep'\\nsmash>\\ "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 1 jobs:\\n"}
+  ]
+}

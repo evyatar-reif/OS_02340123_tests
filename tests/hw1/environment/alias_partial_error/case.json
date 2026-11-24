@@ -1,0 +1,10 @@
+{
+  "description": "Keep the successful part of a multi-variable unset invoked through an alias",
+  "groups": [
+    "combined"
+  ],
+  "env": {
+    "SMASH_DROP_FIRST": "remove first",
+    "SMASH_KEEP_LAST": "keep until explicitly removed"
+  }
+}

@@ -13,10 +13,13 @@ that build can become a reference, so review reference changes before sharing.
 Some tests also independently check process IDs, user identity, fixture sizes,
 and allocated disk usage.
 
-There are **50 default HW1 cases**, plus two optional cases for hard links and
-EOF. References are intentionally not fabricated or generated on Windows. The
-maintainer must generate and commit them from the chosen Linux build before
-others can run the comparisons. No solution source or binary needs to be shared.
+There are **110 default HW1 cases**, plus two optional cases for hard links
+and EOF. The 50 cases in `combined` range from short command sequences to a
+100-job stress test and checks at the 20-token and 200-character limits. The
+10 cases in `end_to_end` each exercise every mandatory built-in, both pipe
+operators, overwrite and append redirection, wildcard expansion, and Ctrl+C in
+one shell session. The maintainer generates and commits references from the
+chosen Linux build. No solution source or binary needs to be shared.
 
 ## Requirements
 
@@ -105,6 +108,12 @@ python3 test_suite.py run --case hw1/aliases/basic --case hw1/jobs/pipeline_with
 # A directory group, or a group explicitly named in case.json
 python3 test_suite.py run --group signals
 
+# List the 50 combined command and stress cases
+python3 test_suite.py list --group combined
+
+# List the 10 end-to-end shell sessions
+python3 test_suite.py list --group end_to_end
+
 # A different tests root or future homework suite
 python3 test_suite.py run --tests ./tests --suite hw1 --list
 ```
@@ -156,6 +165,13 @@ python3 test_suite.py generate-reference \
 Source generation also uses a fresh temporary build and `make smash`. Executable
 generation takes a private copy of the binary first. Both modes use the same
 fixtures, interactions, normalization, timeouts, and cleanup as student runs.
+
+To generate references for the combined or end-to-end cases on the VM:
+
+```bash
+python3 test_suite.py generate-reference --reference ../HW1/skeleton_smash --group combined
+python3 test_suite.py generate-reference --reference ../HW1/skeleton_smash --group end_to_end
+```
 
 The generator requires the reference to be selected explicitly. Running
 `test_suite.py run` never records or updates expected results. Expected output is stored

@@ -1,0 +1,5 @@
+alias collect='cat data/*.txt'
+collect > combined.txt
+cat combined.txt
+getfiletype combined.txt
+quit

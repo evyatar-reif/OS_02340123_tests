@@ -1,0 +1,6 @@
+{
+  "description": "Keep the parent prompt when a chprompt command runs on either side of a pipe",
+  "groups": [
+    "combined"
+  ]
+}

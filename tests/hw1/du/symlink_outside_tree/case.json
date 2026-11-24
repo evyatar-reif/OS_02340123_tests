@@ -1,0 +1,31 @@
+{
+  "description": "Count a directory without following its symlink to a sibling fixture",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "tree/local.txt",
+      "text": "local\n"
+    },
+    {
+      "type": "file",
+      "path": "outside/nested/data.txt",
+      "text": "outside the measured tree\n"
+    },
+    {
+      "type": "symlink",
+      "path": "tree/peer",
+      "target": "../outside"
+    }
+  ],
+  "values": [
+    {
+      "name": "DISK_KB",
+      "kind": "du",
+      "path": "tree",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "description": "Match exactly one character in a wildcard after changing directories through an alias",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "data/item1.txt",
+      "text": "first match\n"
+    },
+    {
+      "type": "file",
+      "path": "data/item2.txt",
+      "text": "second match\n"
+    },
+    {
+      "type": "file",
+      "path": "data/item10.txt",
+      "text": "two digits\n"
+    },
+    {
+      "type": "file",
+      "path": "item1.txt",
+      "text": "root fixture\n"
+    }
+  ]
+}

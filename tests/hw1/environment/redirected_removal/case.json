@@ -1,0 +1,15 @@
+{
+  "description": "Persist a redirected unsetenv so later children inherit the updated environment",
+  "groups": [
+    "combined"
+  ],
+  "files": [
+    "before.txt",
+    "unset.txt",
+    "after.txt"
+  ],
+  "env": {
+    "SMASH_REDIRECT_DROP": "set before",
+    "SMASH_REDIRECT_KEEP": "still set"
+  }
+}

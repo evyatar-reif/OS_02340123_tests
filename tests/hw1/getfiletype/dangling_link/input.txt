@@ -1,0 +1,7 @@
+cd tree
+getfiletype dangling
+cat dangling
+getfiletype local.txt
+cd -
+pwd
+quit

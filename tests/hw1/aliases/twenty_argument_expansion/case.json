@@ -1,0 +1,6 @@
+{
+  "description": "Reach twenty tokens including the executable by joining stored and invocation arguments",
+  "groups": [
+    "combined"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "description": "Treat similarly named environment variables as distinct and preserve spaces in their values",
+  "groups": [
+    "combined"
+  ],
+  "env": {
+    "SMASH_CASE_KEY": "uppercase value",
+    "smash_case_key": "lowercase value",
+    "SMASH_CASE_KEY_EXTRA": "longer name"
+  }
+}

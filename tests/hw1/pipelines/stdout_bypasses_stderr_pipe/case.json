@@ -1,0 +1,13 @@
+{
+  "description": "Keep stdout on the console while a stderr pipe carries only the diagnostic",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "present.txt",
+      "text": "plain stdout\n"
+    }
+  ]
+}

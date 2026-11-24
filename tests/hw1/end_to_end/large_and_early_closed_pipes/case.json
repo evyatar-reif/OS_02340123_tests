@@ -1,0 +1,92 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Exercise a large pipe and an early-closing reader while background jobs and later redirections still work",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/info.txt",
+      "text": "worker ready\n"
+    }
+  ],
+  "files": [
+    "work/summary.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "hold 90 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt large"},
+    {"expect": "(?<=smash> )large> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "large> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "large> "},
+    {"send": "jobs"},
+    {"expect": "(?<=large> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\nlarge> "},
+    {"send": "seq 1 150000 | wc -l"},
+    {"expect": "(?<=large> )150000\\nlarge> "},
+    {"send": "jobs | cat"},
+    {"expect": "(?<=large> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\nlarge> "},
+    {"send": "seq 1 1000000 | head -n 2"},
+    {"expect": "(?<=large> )1\\n2\\nlarge> "},
+    {"send": "echo pipeline-complete > summary.txt"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "pwd >> summary.txt"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "cat summary.txt"},
+    {"expect": "(?<=large> )pipeline-complete\\n{{WORKDIR}}/work\\nlarge> "},
+    {"send": "cat source/i?fo.txt"},
+    {"expect": "(?<=large> )worker ready\\nlarge> "},
+    {"send": "cat missing.txt |& grep -c missing"},
+    {"expect": "(?<=large> )1\\nlarge> "},
+    {"send": "getfiletype source/info.txt"},
+    {"expect": "(?<=large> )source/info\\.txt's type is \"regular file\" and takes up 13 bytes\\nlarge> "},
+    {"send": "du source"},
+    {"expect": "(?<=large> )Total disk usage: [0-9]+ KB\\nlarge> "},
+    {"send": "whoami"},
+    {"expect": "(?<=large> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\nlarge> "},
+    {"send": "showpid"},
+    {"expect": "(?<=large> )smash pid is {{SHELL_PID}}\\nlarge> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "kill -9 2"},
+    {"expect": "(?<=large> )signal number 9 was sent to pid {{second}}\\nlarge> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "fg"},
+    {"expect": "hold 90 \\& {{first}}\\n"},
+    {"wait_child": "first", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{first}} was killed\\nlarge> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "jobs"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "unalias hold"},
+    {"expect": "(?<=large> )large> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=large> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

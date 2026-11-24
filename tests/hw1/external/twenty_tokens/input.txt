@@ -1,0 +1,4 @@
+echo aa bb cc dd ee ff gg hh ii jj kk ll mm nn oo pp qq rr ss
+echo shell-alive | wc -w
+pwd
+quit

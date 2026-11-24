@@ -1,0 +1,7 @@
+{
+  "description": "Compare parent showpid before and after a pipeline that prints its own PID",
+  "groups": [
+    "combined"
+  ],
+  "allow_child_showpid": true
+}

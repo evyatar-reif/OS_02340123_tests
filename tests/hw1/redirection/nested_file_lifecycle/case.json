@@ -1,0 +1,15 @@
+{
+  "description": "Overwrite and append a relative file across directory changes and check its final bytes",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "work"
+    }
+  ],
+  "files": [
+    "work/log.txt"
+  ]
+}

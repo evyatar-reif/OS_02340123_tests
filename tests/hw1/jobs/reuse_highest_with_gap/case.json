@@ -1,0 +1,38 @@
+{
+  "mode": "interactive",
+  "timeout": 14,
+  "description": "Reuse the highest removed ID while a lower gap remains unfilled",
+  "groups": [
+    "combined"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "first", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "sleep 32 &"},
+    {"wait_child": "second", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "sleep 33 &"},
+    {"wait_child": "third", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "kill -15 2"},
+    {"expect": "(?<=smash>\\ )signal number 15 was sent to pid {{second}}\\nsmash>\\ "},
+    {"wait_exit": "second"},
+    {"send": "sleep 34 &"},
+    {"wait_child": "fourth", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\n\\[3\\] sleep 33 \\&\\n\\[4\\] sleep 34 \\&\\nsmash>\\ "},
+    {"send": "kill -15 4"},
+    {"expect": "(?<=smash>\\ )signal number 15 was sent to pid {{fourth}}\\nsmash>\\ "},
+    {"wait_exit": "fourth"},
+    {"send": "sleep 35 &"},
+    {"wait_child": "replacement", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\n\\[3\\] sleep 33 \\&\\n\\[4\\] sleep 35 \\&\\nsmash>\\ "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 3 jobs:\\n"}
+  ]
+}

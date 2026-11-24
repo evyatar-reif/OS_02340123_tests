@@ -1,0 +1,10 @@
+cd alpha
+cd beta
+cd
+getfiletype note.txt
+cd -
+pwd
+cd
+cd -
+cat note.txt
+quit

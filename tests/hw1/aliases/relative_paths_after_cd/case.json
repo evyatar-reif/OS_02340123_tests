@@ -1,0 +1,18 @@
+{
+  "description": "Resolve an alias's relative filename in the current directory on each invocation",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "note.txt",
+      "text": "root note\n"
+    },
+    {
+      "type": "file",
+      "path": "sub/note.txt",
+      "text": "subdirectory note\n"
+    }
+  ]
+}

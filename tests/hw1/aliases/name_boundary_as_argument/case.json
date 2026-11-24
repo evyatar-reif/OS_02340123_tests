@@ -1,0 +1,6 @@
+{
+  "description": "Expand only the command word when the alias name also appears in arguments",
+  "groups": [
+    "combined"
+  ]
+}

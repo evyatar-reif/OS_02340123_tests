@@ -1,0 +1,16 @@
+{
+  "description": "Alternate stdout pipes, stderr pipes, redirection, and alias changes in one shell session",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "notes.txt",
+      "text": "alpha one\nbeta two\nalpha three\n"
+    }
+  ],
+  "files": [
+    "report.txt"
+  ]
+}

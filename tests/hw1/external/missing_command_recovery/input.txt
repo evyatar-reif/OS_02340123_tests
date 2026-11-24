@@ -1,0 +1,9 @@
+cd work
+alias launch='smash_test_nonexistent_exec'
+launch
+cd .. extra
+pwd
+unalias launch
+alias launch='cat note.txt'
+launch
+quit

@@ -1,0 +1,29 @@
+alias keep='echo kept'
+alias item01='echo item01'
+alias item02='echo item02'
+alias item03='echo item03'
+alias item04='echo item04'
+alias item05='echo item05'
+alias item06='echo item06'
+alias item07='echo item07'
+alias item08='echo item08'
+alias item09='echo item09'
+alias item10='echo item10'
+alias item11='echo item11'
+alias item12='echo item12'
+alias item13='echo item13'
+alias item14='echo item14'
+alias item15='echo item15'
+alias item16='echo item16'
+alias item17='echo item17'
+alias item18='echo item18'
+alias item19='echo item19'
+alias
+item19
+unalias item01 item02 item03 item04 item05 item06 item07 item08 item09 item10 item11 item12 item13 item14 item15 item16 item17 item18 item19
+alias
+keep
+alias item19='echo recreated'
+item19
+alias
+quit

@@ -1,0 +1,7 @@
+cd sub > moved.txt
+pwd > inside.txt
+cd -
+pwd
+cat sub/inside.txt
+getfiletype moved.txt
+quit

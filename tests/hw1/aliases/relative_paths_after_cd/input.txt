@@ -1,0 +1,8 @@
+alias readnote='cat note.txt'
+readnote
+cd sub
+readnote
+pwd
+cd -
+readnote
+quit

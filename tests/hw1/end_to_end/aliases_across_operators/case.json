@@ -1,0 +1,104 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Use aliases on both sides of a pipe and at redirection boundaries, then foreground a job after unalias",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/a.txt",
+      "text": "red\nblue\n"
+    },
+    {
+      "type": "file",
+      "path": "work/source/b.txt",
+      "text": "blue\n"
+    }
+  ],
+  "files": [
+    "work/hits.txt",
+    "work/aliases.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "hold 90 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt aliases"},
+    {"expect": "(?<=smash> )aliases> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "aliases> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "aliases> "},
+    {"send": "jobs"},
+    {"expect": "(?<=aliases> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\naliases> "},
+    {"send": "alias scan='cat source/a.txt'"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "alias pick='grep -n'"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "scan|pick blue"},
+    {"expect": "(?<=aliases> )2:blue\\naliases> "},
+    {"send": "scan>hits.txt"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "alias >> aliases.txt"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "echo extra>>hits.txt"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "cat hits.txt"},
+    {"expect": "(?<=aliases> )red\\nblue\\nextra\\naliases> "},
+    {"send": "getfiletype hits.txt"},
+    {"expect": "(?<=aliases> )hits\\.txt's type is \"regular file\" and takes up 15 bytes\\naliases> "},
+    {"send": "cat source/*.txt"},
+    {"expect": "(?<=aliases> )red\\nblue\\nblue\\naliases> "},
+    {"send": "cat absent.txt|&wc -l"},
+    {"expect": "(?<=aliases> )1\\naliases> "},
+    {"send": "pwd"},
+    {"expect": "(?<=aliases> ){{WORKDIR}}/work\\naliases> "},
+    {"send": "showpid"},
+    {"expect": "(?<=aliases> )smash pid is {{SHELL_PID}}\\naliases> "},
+    {"send": "du source | cat"},
+    {"expect": "(?<=aliases> )Total disk usage: [0-9]+ KB\\naliases> "},
+    {"send": "whoami"},
+    {"expect": "(?<=aliases> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\naliases> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "unalias scan pick"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "unalias hold"},
+    {"expect": "(?<=aliases> )aliases> "},
+    {"send": "jobs"},
+    {"expect": "(?<=aliases> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\naliases> "},
+    {"send": "fg 1"},
+    {"expect": "hold 90 \\& {{first}}\\n"},
+    {"wait_child": "first", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{first}} was killed\\naliases> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "kill -15 2"},
+    {"expect": "(?<=aliases> )signal number 15 was sent to pid {{second}}\\naliases> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "chprompt"},
+    {"expect": "(?<=aliases> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

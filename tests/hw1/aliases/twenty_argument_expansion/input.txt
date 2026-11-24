@@ -1,0 +1,5 @@
+alias collect='echo aa bb cc dd ee ff gg hh ii jj'
+collect kk ll mm nn oo pp qq rr ss
+unalias collect
+echo recovery
+quit

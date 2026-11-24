@@ -1,0 +1,6 @@
+{
+  "description": "Keep the first prompt argument and ignore all arguments to pwd and showpid at the token limit",
+  "groups": [
+    "combined"
+  ]
+}

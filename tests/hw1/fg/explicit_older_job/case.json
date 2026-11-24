@@ -1,0 +1,35 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Foreground an older job by ID after a syntax error and leave the newest job running",
+  "groups": [
+    "combined"
+  ],
+  "pid_patterns": [
+    "sleep 31 & (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "older", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "sleep 32 &"},
+    {"wait_child": "newer", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "fg 1 extra"},
+    {"expect": "(?<=smash>\\ )smash error: fg: invalid arguments\\nsmash>\\ "},
+    {"send": "fg 1"},
+    {"expect": "sleep 31 & {{older}}\\n"},
+    {"wait_child": "older", "command": "sleep", "foreground": true},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{older}} was killed\\n"},
+    {"expect": "smash> "},
+    {"wait_exit": "older"},
+    {"send": "fg 1"},
+    {"expect": "(?<=smash>\\ )smash error: fg: job-id 1 does not exist\\nsmash>\\ "},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[2\\] sleep 32 \\&\\nsmash>\\ "},
+    {"send": "quit kill"},
+    {"expect": "{{newer}}: sleep 32 &\\n"}
+  ]
+}

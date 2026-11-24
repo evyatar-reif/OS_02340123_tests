@@ -1,0 +1,35 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Bring the highest live ID to the foreground and interrupt only that aliased job",
+  "groups": [
+    "combined"
+  ],
+  "pid_patterns": [
+    "hold 32 & (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "older", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "hold 32 &"},
+    {"wait_child": "newer", "command": "sleep"},
+    {"expect": "smash> "},
+    {"send": "jobs ignored"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\n\\[2\\] hold 32 \\&\\nsmash>\\ "},
+    {"send": "fg"},
+    {"expect": "hold 32 & {{newer}}\\n"},
+    {"wait_child": "newer", "command": "sleep", "foreground": true},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{newer}} was killed\\n"},
+    {"expect": "smash> "},
+    {"wait_exit": "newer"},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )\\[1\\] sleep 31 \\&\\nsmash>\\ "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 1 jobs:\\n"}
+  ]
+}

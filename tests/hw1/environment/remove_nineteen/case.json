@@ -1,0 +1,28 @@
+{
+  "description": "Remove nineteen variables at the token limit and preserve a separate sentinel",
+  "groups": [
+    "combined"
+  ],
+  "env": {
+    "ST_VAR01": "st_var01",
+    "ST_VAR02": "st_var02",
+    "ST_VAR03": "st_var03",
+    "ST_VAR04": "st_var04",
+    "ST_VAR05": "st_var05",
+    "ST_VAR06": "st_var06",
+    "ST_VAR07": "st_var07",
+    "ST_VAR08": "st_var08",
+    "ST_VAR09": "st_var09",
+    "ST_VAR10": "st_var10",
+    "ST_VAR11": "st_var11",
+    "ST_VAR12": "st_var12",
+    "ST_VAR13": "st_var13",
+    "ST_VAR14": "st_var14",
+    "ST_VAR15": "st_var15",
+    "ST_VAR16": "st_var16",
+    "ST_VAR17": "st_var17",
+    "ST_VAR18": "st_var18",
+    "ST_VAR19": "st_var19",
+    "SMASH_BATCH_KEEP": "still set"
+  }
+}

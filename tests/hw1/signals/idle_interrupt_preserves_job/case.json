@@ -1,0 +1,24 @@
+{
+  "mode": "interactive",
+  "timeout": 10,
+  "description": "Deliver Ctrl+C with only a background job, then signal that same job by its ID",
+  "groups": [
+    "combined"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "sleep 31 &"},
+    {"wait_child": "background", "command": "sleep"},
+    {"expect": "smash> "},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\n"},
+    {"send": "jobs"},
+    {"expect": "\\[1\\] sleep 31 \\&\\nsmash> "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=smash>\\ )signal number 15 was sent to pid {{background}}\\nsmash>\\ "},
+    {"wait_exit": "background"},
+    {"send": "jobs"},
+    {"expect": "(?<=smash>\\ )smash>\\ "},
+    {"send": "quit"}
+  ]
+}

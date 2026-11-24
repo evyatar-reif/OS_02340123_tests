@@ -1,0 +1,6 @@
+{
+  "description": "Pass nineteen operands to a simple external command before running a pipeline",
+  "groups": [
+    "combined"
+  ]
+}

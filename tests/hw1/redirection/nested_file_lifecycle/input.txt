@@ -1,0 +1,11 @@
+cd work
+echo stale > log.txt
+echo appended >> log.txt
+cd -
+cat work/log.txt
+echo replaced > work/log.txt
+cd work
+getfiletype log.txt
+echo final >> log.txt
+cat log.txt
+quit

@@ -1,0 +1,16 @@
+{
+  "description": "Capture output while leaving a diagnostic on stderr and restoring stdout afterward",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "present.txt",
+      "text": "captured stdout\n"
+    }
+  ],
+  "files": [
+    "result.txt"
+  ]
+}

@@ -1,0 +1,6 @@
+getfiletype pointer.txt
+echo replaced > pointer.txt
+echo appended >> pointer.txt
+getfiletype pointer.txt
+cat target.txt
+quit

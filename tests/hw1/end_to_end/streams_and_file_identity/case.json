@@ -1,0 +1,93 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Distinguish stdout from stderr in pipes and redirection while preserving portable identity in a report",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/good.txt",
+      "text": "visible\n"
+    }
+  ],
+  "files": [
+    "work/report.txt",
+    "work/account.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "sleep 91 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt streams"},
+    {"expect": "(?<=smash> )streams> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=streams> )streams> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "streams> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "streams> "},
+    {"send": "jobs"},
+    {"expect": "(?<=streams> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\nstreams> "},
+    {"send": "cat source/good.txt absent.txt |& wc -l"},
+    {"expect": "(?<=streams> )visible\\n1\\nstreams> "},
+    {"send": "cat absent.txt | wc -l"},
+    {"expect": "(?<=streams> )cat: [^\\n]*absent\\.txt[^\\n]*\\n0\\nstreams> "},
+    {"send": "cat source/good.txt absent.txt > report.txt"},
+    {"expect": "(?<=streams> )cat: [^\\n]*absent\\.txt[^\\n]*\\nstreams> "},
+    {"send": "echo appended >> report.txt"},
+    {"expect": "(?<=streams> )streams> "},
+    {"send": "cat report.txt"},
+    {"expect": "(?<=streams> )visible\\nappended\\nstreams> "},
+    {"send": "getfiletype report.txt"},
+    {"expect": "(?<=streams> )report\\.txt's type is \"regular file\" and takes up 17 bytes\\nstreams> "},
+    {"send": "whoami > account.txt"},
+    {"expect": "(?<=streams> )streams> "},
+    {"send": "cat account.txt"},
+    {"expect": "(?<=streams> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\nstreams> "},
+    {"send": "pwd"},
+    {"expect": "(?<=streams> ){{WORKDIR}}/work\\nstreams> "},
+    {"send": "showpid"},
+    {"expect": "(?<=streams> )smash pid is {{SHELL_PID}}\\nstreams> "},
+    {"send": "du source"},
+    {"expect": "(?<=streams> )Total disk usage: [0-9]+ KB\\nstreams> "},
+    {"send": "cat source/*.txt"},
+    {"expect": "(?<=streams> )visible\\nstreams> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=streams> )streams> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=streams> )streams> "},
+    {"send": "fg 2"},
+    {"expect": "sleep 91 \\& {{second}}\\n"},
+    {"wait_child": "second", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{second}} was killed\\nstreams> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "jobs | grep hold"},
+    {"expect": "(?<=streams> )\\[1\\] hold 90 \\&\\nstreams> "},
+    {"send": "kill -15 1"},
+    {"expect": "(?<=streams> )signal number 15 was sent to pid {{first}}\\nstreams> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "unalias hold"},
+    {"expect": "(?<=streams> )streams> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=streams> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

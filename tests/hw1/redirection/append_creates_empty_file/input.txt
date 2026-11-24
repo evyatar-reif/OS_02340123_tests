@@ -1,0 +1,6 @@
+true >> out.txt
+getfiletype out.txt
+echo data >> out.txt
+getfiletype out.txt
+cat out.txt
+quit

@@ -1,0 +1,98 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Recover from failed open, lstat, and job lookups while preserving stdout and a live job",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/entry1.txt",
+      "text": "ready\n"
+    },
+    {
+      "type": "file",
+      "path": "work/source/entry12.txt",
+      "text": "skip\n"
+    }
+  ],
+  "files": [
+    "work/report.txt",
+    "work/missing/out.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "hold 90 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt diagnostics"},
+    {"expect": "(?<=smash> )diagnostics> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=diagnostics> )diagnostics> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "diagnostics> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "diagnostics> "},
+    {"send": "jobs"},
+    {"expect": "(?<=diagnostics> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\ndiagnostics> "},
+    {"send": "pwd > missing/out.txt"},
+    {"expect": "(?<=diagnostics> )smash error: open failed: No such file or directory\\ndiagnostics> "},
+    {"send": "getfiletype absent.txt |& grep -c lstat"},
+    {"expect": "(?<=diagnostics> )1\\ndiagnostics> "},
+    {"send": "getfiletype source/entry1.txt"},
+    {"expect": "(?<=diagnostics> )source/entry1\\.txt's type is \"regular file\" and takes up 6 bytes\\ndiagnostics> "},
+    {"send": "showpid"},
+    {"expect": "(?<=diagnostics> )smash pid is {{SHELL_PID}}\\ndiagnostics> "},
+    {"send": "showpid > report.txt"},
+    {"expect": "(?<=diagnostics> )diagnostics> "},
+    {"send": "pwd >> report.txt"},
+    {"expect": "(?<=diagnostics> )diagnostics> "},
+    {"send": "cat report.txt | grep -F /work"},
+    {"expect": "(?<=diagnostics> ){{WORKDIR}}/work\\ndiagnostics> "},
+    {"send": "cat source/entry?.txt"},
+    {"expect": "(?<=diagnostics> )ready\\ndiagnostics> "},
+    {"send": "du source"},
+    {"expect": "(?<=diagnostics> )Total disk usage: [0-9]+ KB\\ndiagnostics> "},
+    {"send": "whoami | cat"},
+    {"expect": "(?<=diagnostics> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\ndiagnostics> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=diagnostics> )diagnostics> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=diagnostics> )diagnostics> "},
+    {"send": "kill -15 8"},
+    {"expect": "(?<=diagnostics> )smash error: kill: job-id 8 does not exist\\ndiagnostics> "},
+    {"send": "fg 1"},
+    {"expect": "hold 90 \\& {{first}}\\n"},
+    {"wait_child": "first", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{first}} was killed\\ndiagnostics> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "fg 1"},
+    {"expect": "(?<=diagnostics> )smash error: fg: job-id 1 does not exist\\ndiagnostics> "},
+    {"send": "jobs"},
+    {"expect": "(?<=diagnostics> )\\[2\\] sleep 91 \\&\\ndiagnostics> "},
+    {"send": "kill -15 2"},
+    {"expect": "(?<=diagnostics> )signal number 15 was sent to pid {{second}}\\ndiagnostics> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "unalias hold"},
+    {"expect": "(?<=diagnostics> )diagnostics> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=diagnostics> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

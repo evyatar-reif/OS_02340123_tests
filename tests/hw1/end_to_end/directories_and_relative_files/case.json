@@ -1,0 +1,101 @@
+{
+  "mode": "interactive",
+  "timeout": 25,
+  "description": "Preserve current and previous directories across failed cd and piped cd while jobs stay live",
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/source/start.txt",
+      "text": "outside\n"
+    },
+    {
+      "type": "file",
+      "path": "work/sub/leaf.txt",
+      "text": "inside\n"
+    }
+  ],
+  "files": [
+    "work/sub/paths.txt"
+  ],
+  "env": {
+    "SMASH_FLOW": "present"
+  },
+  "identity": true,
+  "values": [
+    {
+      "name": "SOURCE_KB",
+      "kind": "du",
+      "path": "work/source",
+      "pattern": "Total disk usage: (?P<value>[0-9]+) KB"
+    }
+  ],
+  "pid_patterns": [
+    "hold 90 \\& (?P<pid>[0-9]+)"
+  ],
+  "steps": [
+    {"expect": "smash> "},
+    {"send": "cd work"},
+    {"expect": "(?<=smash> )smash> "},
+    {"send": "chprompt directories"},
+    {"expect": "(?<=smash> )directories> "},
+    {"send": "alias hold='sleep'"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "hold 90 &"},
+    {"wait_child": "first", "command": "sleep", "timeout": 5},
+    {"expect": "directories> "},
+    {"send": "sleep 91 &"},
+    {"wait_child": "second", "command": "sleep", "timeout": 5},
+    {"expect": "directories> "},
+    {"send": "jobs"},
+    {"expect": "(?<=directories> )\\[1\\] hold 90 \\&\\n\\[2\\] sleep 91 \\&\\ndirectories> "},
+    {"send": "cd sub"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "cd ../source/start.txt"},
+    {"expect": "(?<=directories> )smash error: chdir failed: Not a directory\\ndirectories> "},
+    {"send": "pwd > paths.txt"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "getfiletype leaf.txt"},
+    {"expect": "(?<=directories> )leaf\\.txt's type is \"regular file\" and takes up 7 bytes\\ndirectories> "},
+    {"send": "cat l?af.txt"},
+    {"expect": "(?<=directories> )inside\\ndirectories> "},
+    {"send": "cd -"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "cd source | cat"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "pwd >> sub/paths.txt"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "cat sub/paths.txt"},
+    {"expect": "(?<=directories> ){{WORKDIR}}/work/sub\\n{{WORKDIR}}/work\\ndirectories> "},
+    {"send": "cat sub/paths.txt | wc -l"},
+    {"expect": "(?<=directories> )2\\ndirectories> "},
+    {"send": "cat missing.txt |& grep -c missing"},
+    {"expect": "(?<=directories> )1\\ndirectories> "},
+    {"send": "du source"},
+    {"expect": "(?<=directories> )Total disk usage: [0-9]+ KB\\ndirectories> "},
+    {"send": "whoami"},
+    {"expect": "(?<=directories> )[^\\n]+\\n[0-9]+\\n[0-9]+\\n/[^\\n]*\\ndirectories> "},
+    {"send": "showpid"},
+    {"expect": "(?<=directories> )smash pid is {{SHELL_PID}}\\ndirectories> "},
+    {"send": "unsetenv SMASH_FLOW"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "printenv SMASH_FLOW"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "kill -15 2"},
+    {"expect": "(?<=directories> )signal number 15 was sent to pid {{second}}\\ndirectories> "},
+    {"wait_exit": "second", "timeout": 5},
+    {"send": "jobs"},
+    {"expect": "(?<=directories> )\\[1\\] hold 90 \\&\\ndirectories> "},
+    {"send": "fg 1"},
+    {"expect": "hold 90 \\& {{first}}\\n"},
+    {"wait_child": "first", "command": "sleep", "foreground": true, "timeout": 5},
+    {"ctrl_c": true},
+    {"expect": "smash: got ctrl-C\\nsmash: process {{first}} was killed\\ndirectories> "},
+    {"wait_exit": "first", "timeout": 5},
+    {"send": "unalias hold"},
+    {"expect": "(?<=directories> )directories> "},
+    {"send": "chprompt"},
+    {"expect": "(?<=directories> )smash> "},
+    {"send": "quit kill"},
+    {"expect": "smash: sending SIGKILL signal to 0 jobs:\\n"}
+  ]
+}

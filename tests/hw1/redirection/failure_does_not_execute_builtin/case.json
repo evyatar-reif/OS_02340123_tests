@@ -1,0 +1,15 @@
+{
+  "description": "Leave prompt and directory state unchanged when opening the redirection target fails",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "sub"
+    }
+  ],
+  "files": [
+    "absent/out.txt"
+  ]
+}

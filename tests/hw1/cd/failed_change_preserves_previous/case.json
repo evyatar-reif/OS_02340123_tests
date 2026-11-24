@@ -1,0 +1,17 @@
+{
+  "description": "Keep the last successful directory after trying to cd into a regular file",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "directory",
+      "path": "sub"
+    },
+    {
+      "type": "file",
+      "path": "plain.txt",
+      "text": "still at the root\n"
+    }
+  ]
+}

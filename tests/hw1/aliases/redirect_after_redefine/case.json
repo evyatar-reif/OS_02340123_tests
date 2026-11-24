@@ -1,0 +1,9 @@
+{
+  "description": "Redirect through a removed and recreated alias while preserving earlier output",
+  "groups": [
+    "combined"
+  ],
+  "files": [
+    "out.txt"
+  ]
+}

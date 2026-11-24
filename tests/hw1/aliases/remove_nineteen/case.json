@@ -1,0 +1,6 @@
+{
+  "description": "Remove nineteen aliases in one command and preserve the unselected alias",
+  "groups": [
+    "combined"
+  ]
+}

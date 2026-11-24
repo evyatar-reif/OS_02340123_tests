@@ -1,0 +1,13 @@
+{
+  "description": "Recover from an aliased exec failure and a malformed cd in the same working directory",
+  "groups": [
+    "combined"
+  ],
+  "setup": [
+    {
+      "type": "file",
+      "path": "work/note.txt",
+      "text": "recovered command\n"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+alias token='echo expanded'
+echo token
+token token
+token|cat
+unalias token
+echo token
+quit

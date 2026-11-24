@@ -1,0 +1,7 @@
+du tree
+cd tree
+getfiletype peer
+cat peer/nested/data.txt | wc -c
+cd -
+pwd
+quit

@@ -1,0 +1,27 @@
+
+chprompt workbench ignored
+alias move='cd'
+alias note='echo first'
+move workspace
+pwd
+note > journal.txt
+printenv SMASH_WORKBENCH >> journal.txt
+cat journal.txt | grep first
+unsetenv SMASH_WORKBENCH
+printenv SMASH_WORKBENCH
+move absent
+pwd
+getfiletype journal.txt
+unalias note
+alias note='echo second'
+note >> journal.txt
+move -
+pwd
+cat workspace/journal.txt
+showpid
+chprompt
+
+alias | cat
+unalias move note
+alias
+quit kill

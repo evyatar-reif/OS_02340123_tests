@@ -1,0 +1,5 @@
+showpid
+showpid | grep smash
+showpid
+pwd
+quit
