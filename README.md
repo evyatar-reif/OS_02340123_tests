@@ -120,10 +120,29 @@ python3 test_suite.py run --tests ./tests --suite hw1 --list
 
 ## Read failures and logs
 
+Print a test's input and saved reference output without building or running
+smash:
+
+```bash
+python3 test_suite.py show --case hw1/redirection/append
+python3 test_suite.py show --case hw1/fg/bring_and_interrupt
+```
+
+Batch cases show the input, stdout, and stderr. Interactive cases show the
+steps and terminal transcript. Both include any checked output files. A missing
+or stale reference still lets you view the input and is reported with exit
+status 1.
+
 The runner reports `PASS`, `FAIL`, or, during generation, `WROTE`/`SKIP`. A failed
 comparison includes a unified diff with expected and actual output. Timeouts,
 unexpected exits/signals, oversized output, missing/stale references, and failed
 interactive expectations are reported distinctly in the failure message.
+
+Each failed case prints its log directory and a ready-to-copy `show --logs`
+command. It displays the input, failure reason, and captured output, including
+partial output from failed reference generation. For interactive cases it also
+shows which steps the runner completed. Pass the run directory printed after
+`Logs:` to `--logs`.
 
 Each invocation creates an ignored directory under `results/` containing:
 

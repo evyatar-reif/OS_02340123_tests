@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Standalone Linux smash suite: run, generate-reference, list, self-test.
+"""Standalone Linux smash suite: run, generate-reference, list, show, self-test.
 Python 3.6+, standard library only. See README.md for test authoring.
 """
 
@@ -19,6 +19,7 @@ import math
 import os
 import re
 import selectors
+import shlex
 import shutil
 import signal
 import subprocess
@@ -924,6 +925,10 @@ def run_command(argv=None, generate=False):
                     message = str(error)
                     print("FAIL  {}\n{}".format(case.id, message))
                     write_text(case_logs / "failure.txt", message + "\n")
+                    print("Case logs: {}".format(case_logs))
+                    print("View input and logs: python3 test_suite.py show --tests {} --suite {} --case {} --logs {}".format(
+                        shlex.quote(str(args.tests.resolve())), shlex.quote(args.suite),
+                        shlex.quote(case.id), shlex.quote(str(logs))))
                     summary.append({"case": case.id, "status": "failed", "message": message})
             write_text(logs / "summary.json", json.dumps(summary, indent=2) + "\n")
             print("\n{} passed/generated, {} failed. Logs: {}".format(len(cases) - failed, failed, logs))
@@ -931,6 +936,74 @@ def run_command(argv=None, generate=False):
     except KeyboardInterrupt:
         print("\nInterrupted; cleaning up the active test session.", file=sys.stderr)
         return 130
+    except (SuiteError, OSError, ValueError) as error:
+        print("ERROR: {}".format(error), file=sys.stderr)
+        return 2
+
+
+def show_command(argv):
+    options = argparse.ArgumentParser(description="Print test inputs and saved reference output or run logs.")
+    options.add_argument("--case", action="append", required=True,
+                         help="Case ID, directory prefix, or quoted glob; repeatable")
+    options.add_argument("--tests", type=Path, default=ROOT / "tests", help="Root of the test cases")
+    options.add_argument("--suite", default="hw1", help="Suite directory (default: hw1)")
+    options.add_argument("--logs", type=Path, help="Run directory printed by the runner after execution")
+    args = options.parse_args(argv)
+
+    def section(title, content):
+        print("--- {} ---".format(title))
+        print(content if content else "(empty)", end="" if content.endswith("\n") else "\n")
+
+    try:
+        cases = discover(args.tests, args.case, suite=args.suite)
+        failed = False
+        for case in cases:
+            print("=== {} ({}) ===".format(case.id, case.mode))
+            if case.mode == "interactive":
+                section("Input steps", json.dumps(case.config["steps"], indent=2, ensure_ascii=False))
+            else:
+                section("Input", (case.path / "input.txt").read_text(encoding="utf-8"))
+
+            if args.logs is not None:
+                case_logs = inside(args.logs, case.id)
+                print("Case logs: {}".format(case_logs))
+                failure = case_logs / "failure.txt"
+                if failure.is_file():
+                    section("Failure", failure.read_text(encoding="utf-8", errors="replace"))
+                names = ("transcript",) if case.mode == "interactive" else ("stdout", "stderr")
+                captured = False
+                for name in names:
+                    output = case_logs / ("raw." + name + ".txt")
+                    if output.is_file():
+                        section("Actual " + name, output.read_text(encoding="utf-8", errors="replace"))
+                        captured = True
+                events = case_logs / "events.json"
+                if case.mode == "interactive" and events.is_file():
+                    section("Interactive events", events.read_text(encoding="utf-8"))
+                if not captured:
+                    section("Actual output", "No shell output was captured.")
+                    failed = failed or not failure.is_file()
+                continue
+
+            try:
+                reference = load_reference(case)
+            except SuiteError as error:
+                section("Expected output", str(error))
+                failed = True
+                continue
+
+            for name, content in reference["streams"].items():
+                section("Expected " + name, content)
+            for name, entry in reference["files"].items():
+                title = "Expected file: " + name
+                if entry["kind"] == "missing":
+                    section(title, "(missing)")
+                elif entry["kind"] == "binary":
+                    section(title + " (hex)", entry["content"].hex())
+                else:
+                    section(title, entry["content"])
+            print("Expected exit code: {}".format(reference["exit_code"]))
+        return 1 if failed else 0
     except (SuiteError, OSError, ValueError) as error:
         print("ERROR: {}".format(error), file=sys.stderr)
         return 2
@@ -1228,10 +1301,11 @@ class LinuxIntegrationTests(CaseFixture):
 def main(argv=None):
     args = list(sys.argv[1:] if argv is None else argv)
     if not args or args[0] in ("-h", "--help"):
-        print("Usage: python3 test_suite.py {run,generate-reference,list,self-test} [options]")
+        print("Usage: python3 test_suite.py {run,generate-reference,list,show,self-test} [options]")
         print("  run                 Build with make smash and compare saved references")
         print("  generate-reference  Record your explicitly selected master build")
         print("  list                List cases and reference status without running")
+        print("  show                Print test input and saved reference output or run logs")
         print("  self-test           Test the runner; Linux adds PTY/process checks")
         print("Use COMMAND --help for command options.")
         return 0
@@ -1242,6 +1316,8 @@ def main(argv=None):
         return run_command(args, generate=True)
     if command == "list":
         return run_command(["--list"] + args)
+    if command == "show":
+        return show_command(args)
     if command == "self-test":
         if args:
             print("Usage: python3 test_suite.py self-test", file=sys.stderr)
