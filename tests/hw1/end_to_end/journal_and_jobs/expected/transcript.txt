@@ -1,0 +1,18 @@
+smash> smash> journal> journal> journal> journal> [1] hold 90 &
+[2] sleep 91 &
+journal> journal> journal> smash pid is {{SHELL_PID}}
+journal> {{WORKDIR}}/work
+smash pid is {{SHELL_PID}}
+journal> present
+journal> journal> journal> {{IDENTITY}}
+journal> Total disk usage: {{SOURCE_KB}} KB
+journal> source/a.txt's type is "regular file" and takes up 6 bytes
+journal> alpha
+beta
+journal> 1
+journal> signal number 15 was sent to pid {{PID:first}}
+journal> [2] sleep 91 &
+journal> sleep 91 & {{PID:second}}
+smash: got ctrl-C
+smash: process {{PID:second}} was killed
+journal> journal> journal> smash> smash: sending SIGKILL signal to 0 jobs:

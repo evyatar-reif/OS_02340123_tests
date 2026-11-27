@@ -1,0 +1,21 @@
+smash> smash> streams> streams> streams> streams> [1] hold 90 &
+[2] sleep 91 &
+streams> visible
+1
+streams> cat: absent.txt: No such file or directory
+0
+streams> cat: absent.txt: No such file or directory
+streams> streams> visible
+appended
+streams> report.txt's type is "regular file" and takes up 17 bytes
+streams> streams> {{IDENTITY}}
+streams> {{WORKDIR}}/work
+streams> smash pid is {{SHELL_PID}}
+streams> Total disk usage: {{SOURCE_KB}} KB
+streams> visible
+streams> streams> streams> sleep 91 & {{PID:second}}
+smash: got ctrl-C
+smash: process {{PID:second}} was killed
+streams> [1] hold 90 &
+streams> signal number 15 was sent to pid {{PID:first}}
+streams> streams> smash> smash: sending SIGKILL signal to 0 jobs:

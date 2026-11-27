@@ -1,0 +1,21 @@
+{
+  "exit_code": 0,
+  "files": {
+    "work/absent/out.txt": {
+      "kind": "missing"
+    },
+    "work/prompt.txt": {
+      "kind": "text"
+    }
+  },
+  "generated_at": "2026-11-24T19:18:37.464266+00:00",
+  "reference": {
+    "binary_sha256": "086b315b36381ab333ae369b1cc3666c10972d71f73c8bde30cc0e2c244830b4",
+    "label": "maintainer build"
+  },
+  "schema": 1,
+  "streams": [
+    "transcript"
+  ],
+  "test_sha256": "c95807a3171073089061664537d595dd2f3a0f46081eb0c9bf6ddeb36379cb0c"
+}

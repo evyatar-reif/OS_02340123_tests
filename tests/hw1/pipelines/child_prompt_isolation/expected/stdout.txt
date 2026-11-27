@@ -1,0 +1,3 @@
+smash> outer> outer> {{WORKDIR}}
+outer> outer> smash pid is {{SHELL_PID}}
+outer> smash> 

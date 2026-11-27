@@ -1,0 +1,20 @@
+smash> smash> large> large> large> large> [1] hold 90 &
+[2] sleep 91 &
+large> 150000
+large> [1] hold 90 &
+[2] sleep 91 &
+large> 1
+2
+large> large> large> pipeline-complete
+{{WORKDIR}}/work
+large> worker ready
+large> 1
+large> source/info.txt's type is "regular file" and takes up 13 bytes
+large> Total disk usage: {{SOURCE_KB}} KB
+large> {{IDENTITY}}
+large> smash pid is {{SHELL_PID}}
+large> large> large> signal number 9 was sent to pid {{PID:second}}
+large> hold 90 & {{PID:first}}
+smash: got ctrl-C
+smash: process {{PID:first}} was killed
+large> large> large> smash> smash: sending SIGKILL signal to 0 jobs:

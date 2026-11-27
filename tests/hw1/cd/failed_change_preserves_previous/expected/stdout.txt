@@ -1,0 +1,5 @@
+smash> smash> {{WORKDIR}}/sub
+smash> smash> {{WORKDIR}}/sub
+smash> smash> {{WORKDIR}}
+smash> still at the root
+smash> 

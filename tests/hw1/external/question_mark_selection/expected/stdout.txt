@@ -1,0 +1,5 @@
+smash> smash> smash> first match
+second match
+smash> smash> {{WORKDIR}}
+smash> root fixture
+smash> 

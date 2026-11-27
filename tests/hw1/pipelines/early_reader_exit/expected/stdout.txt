@@ -1,0 +1,7 @@
+smash> 1
+2
+3
+smash> 8
+9
+smash> complete
+smash> 

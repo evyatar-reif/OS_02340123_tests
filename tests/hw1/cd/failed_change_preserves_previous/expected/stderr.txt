@@ -1,0 +1,1 @@
+smash error: chdir failed: Not a directory

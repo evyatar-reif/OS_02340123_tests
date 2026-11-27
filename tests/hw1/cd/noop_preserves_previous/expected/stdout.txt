@@ -1,0 +1,4 @@
+smash> smash> smash> smash> note.txt's type is "regular file" and takes up 12 bytes
+smash> smash> {{WORKDIR}}/alpha
+smash> smash> smash> nested note
+smash> 

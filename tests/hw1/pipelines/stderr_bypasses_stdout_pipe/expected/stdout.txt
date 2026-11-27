@@ -1,0 +1,5 @@
+smash> selected
+smash> {{WORKDIR}}
+smash> selected
+omitted
+smash> 

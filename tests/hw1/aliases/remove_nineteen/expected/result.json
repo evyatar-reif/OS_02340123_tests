@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "files": {},
+  "generated_at": "2026-11-24T19:17:45.361012+00:00",
+  "reference": {
+    "binary_sha256": "086b315b36381ab333ae369b1cc3666c10972d71f73c8bde30cc0e2c244830b4",
+    "label": "maintainer build"
+  },
+  "schema": 1,
+  "streams": [
+    "stdout",
+    "stderr"
+  ],
+  "test_sha256": "6e15529d137b271dfbf3f4906b5b2d6063dcb050e90fc3b6784b5916007e6584"
+}

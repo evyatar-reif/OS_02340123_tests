@@ -1,0 +1,4 @@
+smash> smash> smash> smash> {{WORKDIR}}/sub
+smash> smash> {{WORKDIR}}
+smash> smash> smash> {{WORKDIR}}
+smash> 

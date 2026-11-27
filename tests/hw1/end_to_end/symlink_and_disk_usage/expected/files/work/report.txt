@@ -1,0 +1,2 @@
+fresh
+smash pid is {{SHELL_PID}}

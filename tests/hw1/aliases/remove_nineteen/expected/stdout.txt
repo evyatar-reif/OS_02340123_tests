@@ -1,0 +1,27 @@
+smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> smash> keep='echo kept'
+item01='echo item01'
+item02='echo item02'
+item03='echo item03'
+item04='echo item04'
+item05='echo item05'
+item06='echo item06'
+item07='echo item07'
+item08='echo item08'
+item09='echo item09'
+item10='echo item10'
+item11='echo item11'
+item12='echo item12'
+item13='echo item13'
+item14='echo item14'
+item15='echo item15'
+item16='echo item16'
+item17='echo item17'
+item18='echo item18'
+item19='echo item19'
+smash> item19
+smash> smash> keep='echo kept'
+smash> kept
+smash> smash> recreated
+smash> keep='echo kept'
+item19='echo recreated'
+smash> 

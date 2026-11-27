@@ -1,0 +1,28 @@
+{
+  "exit_code": 0,
+  "files": {
+    "inside.txt": {
+      "kind": "missing"
+    },
+    "moved.txt": {
+      "kind": "text"
+    },
+    "sub/inside.txt": {
+      "kind": "text"
+    },
+    "sub/moved.txt": {
+      "kind": "missing"
+    }
+  },
+  "generated_at": "2026-11-24T19:17:45.826231+00:00",
+  "reference": {
+    "binary_sha256": "086b315b36381ab333ae369b1cc3666c10972d71f73c8bde30cc0e2c244830b4",
+    "label": "maintainer build"
+  },
+  "schema": 1,
+  "streams": [
+    "stdout",
+    "stderr"
+  ],
+  "test_sha256": "40a5a383b1eb087ce5f2be0215699d077e6e84b761508fc298670b4949e56b3b"
+}

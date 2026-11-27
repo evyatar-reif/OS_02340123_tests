@@ -1,0 +1,19 @@
+smash> smash> environment> environment> environment> environment> [1] hold 90 &
+[2] sleep 91 &
+environment> environment> environment> environment> environment> 2:kept
+environment> old
+kept
+environment> parent
+environment> first
+second
+environment> 1
+environment> unset.txt's type is "regular file" and takes up 0 bytes
+environment> Total disk usage: {{SOURCE_KB}} KB
+environment> {{IDENTITY}}
+environment> smash pid is {{SHELL_PID}}
+environment> {{WORKDIR}}/work
+environment> sleep 91 & {{PID:second}}
+smash: got ctrl-C
+smash: process {{PID:second}} was killed
+environment> signal number 15 was sent to pid {{PID:first}}
+environment> environment> environment> smash> smash: sending SIGKILL signal to 0 jobs:

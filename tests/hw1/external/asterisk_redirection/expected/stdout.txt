@@ -1,0 +1,4 @@
+smash> smash> smash> alpha
+beta
+smash> combined.txt's type is "regular file" and takes up 11 bytes
+smash> 

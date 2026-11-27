@@ -1,0 +1,4 @@
+smash> smash> smash> smash> smash> smash> stamp='echo second'
+smash> first
+second
+smash> 

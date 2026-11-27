@@ -1,0 +1,21 @@
+smash> smash> job> job> job> job> [1] hold 90 &
+[2] sleep 91 &
+job> job> signal number 15 was sent to pid {{PID:second}}
+job> job> [1] hold 90 &
+[2] sleep 92&
+job> job> 2
+job> smash pid is {{SHELL_PID}}
+smash pid is {{SHELL_PID}}
+job> {{WORKDIR}}/work
+job> {{IDENTITY}}
+job> Total disk usage: {{SOURCE_KB}} KB
+job> source/next.txt's type is "regular file" and takes up 6 bytes
+job> before
+after
+job> 1
+job> job> job> sleep 92& {{PID:replacement}}
+smash: got ctrl-C
+smash: process {{PID:replacement}} was killed
+job> [1] hold 90 &
+job> job> smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:first}}: hold 90 &

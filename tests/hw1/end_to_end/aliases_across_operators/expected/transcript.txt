@@ -1,0 +1,22 @@
+smash> smash> aliases> aliases> aliases> aliases> [1] hold 90 &
+[2] sleep 91 &
+aliases> aliases> aliases> 2:blue
+aliases> aliases> aliases> aliases> red
+blue
+extra
+aliases> hits.txt's type is "regular file" and takes up 15 bytes
+aliases> red
+blue
+blue
+aliases> 1
+aliases> {{WORKDIR}}/work
+aliases> smash pid is {{SHELL_PID}}
+aliases> Total disk usage: {{SOURCE_KB}} KB
+aliases> {{IDENTITY}}
+aliases> aliases> aliases> aliases> aliases> [1] hold 90 &
+[2] sleep 91 &
+aliases> hold 90 & {{PID:first}}
+smash: got ctrl-C
+smash: process {{PID:first}} was killed
+aliases> signal number 15 was sent to pid {{PID:second}}
+aliases> smash> smash: sending SIGKILL signal to 0 jobs:

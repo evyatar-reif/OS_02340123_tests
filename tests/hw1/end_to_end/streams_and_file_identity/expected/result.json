@@ -1,0 +1,21 @@
+{
+  "exit_code": 0,
+  "files": {
+    "work/account.txt": {
+      "kind": "text"
+    },
+    "work/report.txt": {
+      "kind": "text"
+    }
+  },
+  "generated_at": "2026-11-24T19:18:37.702688+00:00",
+  "reference": {
+    "binary_sha256": "086b315b36381ab333ae369b1cc3666c10972d71f73c8bde30cc0e2c244830b4",
+    "label": "maintainer build"
+  },
+  "schema": 1,
+  "streams": [
+    "transcript"
+  ],
+  "test_sha256": "69d06816846b0c512c6fa2a914b860179bd903b5b05b089857c22137c3c2606d"
+}

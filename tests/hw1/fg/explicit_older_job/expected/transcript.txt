@@ -1,0 +1,8 @@
+smash> smash> smash> smash error: fg: invalid arguments
+smash> sleep 31 & {{PID:older}}
+smash: got ctrl-C
+smash: process {{PID:older}} was killed
+smash> smash error: fg: job-id 1 does not exist
+smash> [2] sleep 32 &
+smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:newer}}: sleep 32 &

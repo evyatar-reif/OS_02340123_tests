@@ -1,0 +1,12 @@
+smash> smash> workbench> workbench> workbench> workbench> {{WORKDIR}}/workspace
+workbench> workbench> workbench> first
+workbench> workbench> workbench> workbench> {{WORKDIR}}/workspace
+workbench> journal.txt's type is "regular file" and takes up 28 bytes
+workbench> workbench> workbench> workbench> workbench> {{WORKDIR}}
+workbench> first
+recorded before unset
+second
+workbench> smash pid is {{SHELL_PID}}
+workbench> smash> smash> move='cd'
+note='echo second'
+smash> smash> smash> smash: sending SIGKILL signal to 0 jobs:

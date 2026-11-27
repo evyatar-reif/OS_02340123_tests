@@ -1,0 +1,6 @@
+smash> active> active> active> smash: got ctrl-C
+smash: process {{PID:foreground}} was killed
+active> [1] sleep 31 &
+active> smash pid is {{SHELL_PID}}
+active> smash: sending SIGKILL signal to 1 jobs:
+{{PID:background}}: sleep 31 &

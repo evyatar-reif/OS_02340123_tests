@@ -1,0 +1,5 @@
+smash> smash> smash> Total disk usage: {{DISK_KB}} KB
+smash> {{WORKDIR}}/tree
+smash> smash> tree's type is "directory" and takes up {{TREE_BYTES}} bytes
+smash> Total disk usage: {{DISK_KB}} KB
+smash> smash> 

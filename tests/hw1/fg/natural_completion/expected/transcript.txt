@@ -1,0 +1,5 @@
+smash> smash> bash finish.sh & {{PID:short_job}}
+job completed
+smash> smash> smash> [1] sleep 31 &
+smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:replacement}}: sleep 31 &

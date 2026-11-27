@@ -1,0 +1,5 @@
+smash> smash> root note
+smash> smash> subdirectory note
+smash> {{WORKDIR}}/sub
+smash> smash> root note
+smash> 

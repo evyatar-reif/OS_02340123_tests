@@ -1,0 +1,21 @@
+{
+  "exit_code": 0,
+  "files": {
+    "work/missing/out.txt": {
+      "kind": "missing"
+    },
+    "work/report.txt": {
+      "kind": "text"
+    }
+  },
+  "generated_at": "2026-11-24T19:17:46.445628+00:00",
+  "reference": {
+    "binary_sha256": "086b315b36381ab333ae369b1cc3666c10972d71f73c8bde30cc0e2c244830b4",
+    "label": "maintainer build"
+  },
+  "schema": 1,
+  "streams": [
+    "transcript"
+  ],
+  "test_sha256": "4c6aafc789ec99911b9e5526d80f73f1e1f31e0a458e4299d957bdaa7404b9e0"
+}

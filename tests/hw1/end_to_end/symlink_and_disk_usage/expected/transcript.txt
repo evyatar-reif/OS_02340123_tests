@@ -1,0 +1,17 @@
+smash> smash> symlink> symlink> symlink> symlink> [1] hold 90 &
+[2] sleep 91 &
+symlink> Total disk usage: {{SOURCE_KB}} KB
+symlink> source/edge's type is "symbolic link" and takes up 13 bytes
+symlink> symlink> symlink> smash pid is {{SHELL_PID}}
+symlink> fresh
+smash pid is {{SHELL_PID}}
+symlink> hello
+symlink> 1
+symlink> Total disk usage: {{SOURCE_KB}} KB
+symlink> {{IDENTITY}}
+symlink> {{WORKDIR}}/work
+symlink> symlink> symlink> signal number 15 was sent to pid {{PID:first}}
+symlink> sleep 91 & {{PID:second}}
+smash: got ctrl-C
+smash: process {{PID:second}} was killed
+symlink> symlink> smash> smash: sending SIGKILL signal to 0 jobs:

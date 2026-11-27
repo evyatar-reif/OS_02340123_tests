@@ -1,0 +1,4 @@
+smash> smash> smash> captured stdout
+appended
+smash> console
+smash> 

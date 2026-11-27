@@ -1,0 +1,7 @@
+smash> smash> smash> smash> smash> [1] hold 35 &
+smash> smash> {{WORKDIR}}/work
+smash> signal number 15 was sent to pid {{PID:aliased}}
+smash> [2] sleep 36 &
+smash> smash> hold='sleep'
+smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:direct}}: sleep 36 &

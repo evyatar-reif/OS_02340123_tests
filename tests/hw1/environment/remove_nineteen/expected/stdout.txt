@@ -1,0 +1,22 @@
+smash> st_var01
+st_var02
+st_var03
+st_var04
+st_var05
+st_var06
+st_var07
+st_var08
+st_var09
+st_var10
+st_var11
+st_var12
+st_var13
+st_var14
+st_var15
+st_var16
+st_var17
+st_var18
+st_var19
+smash> smash> smash> still set
+smash> {{WORKDIR}}
+smash> 

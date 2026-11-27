@@ -1,0 +1,18 @@
+smash> smash> diagnostics> diagnostics> diagnostics> diagnostics> [1] hold 90 &
+[2] sleep 91 &
+diagnostics> smash error: open failed: No such file or directory
+diagnostics> 1
+diagnostics> source/entry1.txt's type is "regular file" and takes up 6 bytes
+diagnostics> smash pid is {{SHELL_PID}}
+diagnostics> diagnostics> diagnostics> {{WORKDIR}}/work
+diagnostics> ready
+diagnostics> Total disk usage: {{SOURCE_KB}} KB
+diagnostics> {{IDENTITY}}
+diagnostics> diagnostics> diagnostics> smash error: kill: job-id 8 does not exist
+diagnostics> hold 90 & {{PID:first}}
+smash: got ctrl-C
+smash: process {{PID:first}} was killed
+diagnostics> smash error: fg: job-id 1 does not exist
+diagnostics> [2] sleep 91 &
+diagnostics> signal number 15 was sent to pid {{PID:second}}
+diagnostics> diagnostics> smash> smash: sending SIGKILL signal to 0 jobs:

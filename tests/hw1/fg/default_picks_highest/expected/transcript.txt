@@ -1,0 +1,8 @@
+smash> smash> smash> smash> [1] sleep 31 &
+[2] hold 32 &
+smash> hold 32 & {{PID:newer}}
+smash: got ctrl-C
+smash: process {{PID:newer}} was killed
+smash> [1] sleep 31 &
+smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:older}}: sleep 31 &

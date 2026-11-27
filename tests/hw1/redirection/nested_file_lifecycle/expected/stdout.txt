@@ -1,0 +1,6 @@
+smash> smash> smash> smash> smash> stale
+appended
+smash> smash> smash> log.txt's type is "regular file" and takes up 9 bytes
+smash> smash> replaced
+final
+smash> 

@@ -1,0 +1,4 @@
+smash> smash> out.txt's type is "regular file" and takes up 0 bytes
+smash> smash> out.txt's type is "regular file" and takes up 5 bytes
+smash> data
+smash> 

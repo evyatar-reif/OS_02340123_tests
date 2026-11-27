@@ -1,0 +1,4 @@
+smash> smash> dangling's type is "symbolic link" and takes up 11 bytes
+smash> smash> local.txt's type is "regular file" and takes up 6 bytes
+smash> smash> {{WORKDIR}}
+smash> 

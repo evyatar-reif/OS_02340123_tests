@@ -1,0 +1,5 @@
+smash> Total disk usage: {{DISK_KB}} KB
+smash> smash> peer's type is "symbolic link" and takes up 10 bytes
+smash> 26
+smash> smash> {{WORKDIR}}
+smash> 

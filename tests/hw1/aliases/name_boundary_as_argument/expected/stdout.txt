@@ -1,0 +1,5 @@
+smash> smash> token
+smash> expanded token
+smash> expanded
+smash> smash> token
+smash> 

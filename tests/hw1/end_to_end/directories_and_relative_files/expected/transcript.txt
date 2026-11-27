@@ -1,0 +1,18 @@
+smash> smash> directories> directories> directories> directories> [1] hold 90 &
+[2] sleep 91 &
+directories> directories> smash error: chdir failed: Not a directory
+directories> directories> leaf.txt's type is "regular file" and takes up 7 bytes
+directories> inside
+directories> directories> directories> directories> {{WORKDIR}}/work/sub
+{{WORKDIR}}/work
+directories> 2
+directories> 1
+directories> Total disk usage: {{SOURCE_KB}} KB
+directories> {{IDENTITY}}
+directories> smash pid is {{SHELL_PID}}
+directories> directories> directories> signal number 15 was sent to pid {{PID:second}}
+directories> [1] hold 90 &
+directories> hold 90 & {{PID:first}}
+smash: got ctrl-C
+smash: process {{PID:first}} was killed
+directories> directories> smash> smash: sending SIGKILL signal to 0 jobs:

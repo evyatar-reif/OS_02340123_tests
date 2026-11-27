@@ -1,0 +1,20 @@
+smash> flow> flow> flow> 1:alpha one
+3:alpha three
+flow> 1
+flow> 1
+flow> 1000
+flow> notes.txt's type is "regular file" and takes up 31 bytes
+flow> 2:beta two
+flow> cat: absent.txt: No such file or directory
+flow> flow> 3
+flow> flow> 2:more
+flow> flow> flow> 2
+flow> pick='grep -c'
+flow> top
+flow> 1
+flow> report.txt's type is "regular file" and takes up 11 bytes
+flow> saved
+more
+flow> flow> {{WORKDIR}}
+flow> smash> complete
+smash> 

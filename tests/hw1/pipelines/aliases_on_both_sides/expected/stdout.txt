@@ -1,0 +1,4 @@
+smash> smash> smash> 1:blue
+3:light blue
+smash> 2:red
+smash> smash> smash> 

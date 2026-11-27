@@ -1,0 +1,5 @@
+smash> plain stdout
+1
+smash> stdout-restored
+smash> present.txt's type is "regular file" and takes up 13 bytes
+smash> 

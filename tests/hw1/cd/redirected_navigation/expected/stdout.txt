@@ -1,0 +1,4 @@
+smash> smash> smash> smash> {{WORKDIR}}
+smash> {{WORKDIR}}/sub
+smash> moved.txt's type is "regular file" and takes up 0 bytes
+smash> 

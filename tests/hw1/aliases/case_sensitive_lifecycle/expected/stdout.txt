@@ -1,0 +1,8 @@
+smash> smash> smash> lower
+smash> upper
+smash> smash> Tag='echo upper'
+smash> upper
+smash> smash> Tag='echo upper'
+tag='echo recreated'
+smash> recreated
+smash> 

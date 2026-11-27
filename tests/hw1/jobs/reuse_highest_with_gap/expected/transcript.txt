@@ -1,0 +1,12 @@
+smash> smash> smash> smash> signal number 15 was sent to pid {{PID:second}}
+smash> smash> [1] sleep 31 &
+[3] sleep 33 &
+[4] sleep 34 &
+smash> signal number 15 was sent to pid {{PID:fourth}}
+smash> smash> [1] sleep 31 &
+[3] sleep 33 &
+[4] sleep 35 &
+smash> smash: sending SIGKILL signal to 3 jobs:
+{{PID:first}}: sleep 31 &
+{{PID:third}}: sleep 33 &
+{{PID:replacement}}: sleep 35 &

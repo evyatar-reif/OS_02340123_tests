@@ -1,0 +1,20 @@
+smash> smash> prompts> prompts> prompts> prompts> [1] hold 90 &
+[2] sleep 91 &
+prompts> prompts> smash error: open failed: No such file or directory
+prompts> stage> stage> stage> stage
+stage> payload
+stage> 1
+stage> smash pid is {{SHELL_PID}}
+stage> {{IDENTITY}}
+stage> Total disk usage: {{SOURCE_KB}} KB
+stage> source/a.txt's type is "regular file" and takes up 8 bytes
+stage> stage> stage> signal number 19 was sent to pid {{PID:first}}
+stage> [1] hold 90 &
+[2] sleep 91 &
+stage> signal number 18 was sent to pid {{PID:first}}
+stage> hold 90 & {{PID:first}}
+smash: got ctrl-C
+smash: process {{PID:first}} was killed
+stage> [2] sleep 91 &
+stage> stage> smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:second}}: sleep 91 &

@@ -1,0 +1,4 @@
+smash> parent value
+smash> smash> parent value
+smash> smash> smash> {{WORKDIR}}
+smash> 

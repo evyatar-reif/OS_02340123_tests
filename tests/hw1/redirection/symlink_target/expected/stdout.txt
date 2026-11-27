@@ -1,0 +1,5 @@
+smash> pointer.txt's type is "symbolic link" and takes up 10 bytes
+smash> smash> smash> pointer.txt's type is "symbolic link" and takes up 10 bytes
+smash> replaced
+appended
+smash> 

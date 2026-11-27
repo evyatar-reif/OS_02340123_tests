@@ -1,0 +1,7 @@
+smash> uppercase value
+lowercase value
+longer name
+smash> smash> uppercase value
+longer name
+smash> smash> longer name
+smash> 

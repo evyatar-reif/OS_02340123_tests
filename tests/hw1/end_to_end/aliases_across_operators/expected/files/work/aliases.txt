@@ -1,0 +1,3 @@
+hold='sleep'
+scan='cat source/a.txt'
+pick='grep -n'

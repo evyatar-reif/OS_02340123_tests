@@ -1,0 +1,5 @@
+smash> smash pid is {{SHELL_PID}}
+smash> smash pid is {{PID:1}}
+smash> smash pid is {{SHELL_PID}}
+smash> {{WORKDIR}}
+smash> 

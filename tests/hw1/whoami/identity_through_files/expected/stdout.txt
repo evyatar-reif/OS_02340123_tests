@@ -1,0 +1,4 @@
+smash> account> account> account> account> {{IDENTITY}}
+account> {{IDENTITY}}
+account> account> smash pid is {{SHELL_PID}}
+account> smash> 

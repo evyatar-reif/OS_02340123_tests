@@ -1,0 +1,4 @@
+smash> smash> smash> smash> [1] sleep 31 &
+[2] keep 32 &
+smash> smash> smash: sending SIGKILL signal to 1 jobs:
+{{PID:live}}: keep 32 &
